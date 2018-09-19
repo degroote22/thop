@@ -1,8 +1,9 @@
+use instance::Instance;
 use parser;
 use std::collections::HashMap;
 
 struct Evaluator<'a> {
-    instance: &'a parser::SuperFile<'a>,
+    instance: &'a Instance<'a>,
     // solution: &'a parser::SolutionFile,
 }
 
@@ -87,16 +88,16 @@ impl<'a> Evaluator<'a> {
         }
     }
 
-    fn new(instance: &'a parser::SuperFile) -> Evaluator<'a> {
+    fn new(instance: &'a Instance) -> Evaluator<'a> {
         Evaluator { instance: instance }
     }
 }
 
-pub fn evaluate(instance: parser::SuperFile, solution: parser::SolutionFile) {
+pub fn evaluate(instance: Instance, solution: parser::SolutionFile) {
     let ev = Evaluator::new(&instance);
     let c = ev.calc(&solution);
-    println!("Time: {}", c.time);
-    println!("Weight: {}", c.weight);
     println!("Profit: {}", c.profit);
-    println!("Okay: {}", c.okay);
+    println!("Time: {}", c.time);
+    // println!("Weight: {}", c.weight);
+    // println!("Okay: {}", c.okay);
 }

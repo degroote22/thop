@@ -1,13 +1,11 @@
 #[macro_use]
 extern crate lazy_static;
 extern crate regex;
+mod evaluate;
+mod instance;
 mod makers;
 mod parser;
 mod utils;
-use parser::parse_instance;
-use parser::parse_solution;
-use parser::SuperFile;
-mod evaluate;
 // use std::env;
 use std::fs::File;
 use std::io::prelude::*;
@@ -47,7 +45,7 @@ fn main() {
             "./input-a/solutions/ex4-n5_a.thop.sol",
         ),
         (
-            "./input-a/instances/ex4-n5_3.thop",
+            "./input-a/instances/ex4-n5_2.thop",
             "./input-a/solutions/ex4-n5_d.thop.sol",
         ),
         // n5_3
@@ -162,13 +160,12 @@ fn main() {
         f2.read_to_string(&mut contents2)
             .expect("something went wrong reading the file");
 
-        let solution = parse_solution(&contents2);
-
-        let instance = parse_instance(&contents);
-        let super_file = SuperFile::new(&instance);
+        let solution = parser::solution::parse(&contents2);
+        let instance_file = parser::instance::parse(&contents);
+        let instance = instance::Instance::new(&instance_file);
 
         println!("Evaluating {} {}", i, s);
-        evaluate::evaluate(super_file, solution);
+        evaluate::evaluate(instance, solution);
         println!("");
     }
 }
