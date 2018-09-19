@@ -1,5 +1,6 @@
 use makers;
 use regex::Regex;
+use std::collections::HashMap;
 use utils;
 
 lazy_static! {
@@ -27,10 +28,10 @@ pub struct NodeCoordSection {
 
 #[derive(Debug, PartialEq)]
 pub struct ItemSection {
-    index: u32,
-    profit: u32,
-    weight: u32,
-    assigned_city_id: u32,
+    pub index: u32,
+    pub profit: u32,
+    pub weight: u32,
+    pub assigned_city_id: u32,
 }
 
 #[derive(Debug)]
@@ -51,12 +52,14 @@ pub struct THOPFile {
 pub struct SuperFile<'a> {
     instance: &'a THOPFile,
     distance_matrix: Vec<Vec<u32>>,
+    items_hash: HashMap<u32, &'a ItemSection>,
 }
 impl<'a> SuperFile<'a> {
     pub fn new(instance: &'a THOPFile) -> SuperFile {
         SuperFile {
             instance,
             distance_matrix: makers::make_distance_matrix(&instance.node_coord_section),
+            items_hash: makers::make_hash_map(&instance.items_section),
         }
     }
 
@@ -64,19 +67,26 @@ impl<'a> SuperFile<'a> {
         self.instance.max_speed.unwrap()
     }
 
-    pub fn visit_city(&self, city: u32, items: &Vec<u32>) -> (u32, u32) {
-        // (u32: weight, u32: profit)
+    pub fn get_item_details(&self, asked: u32) -> &ItemSection {
+        self.items_hash.get(&asked).unwrap()
+    }
+
+    pub fn visit_city(&self, city: u32, items: &Vec<u32>) -> (u32, u32, u32) {
+        // (u32: weight, u32: profit, u32: n items catched)
         let mut weight = 0;
         let mut profit = 0;
-        for available in self.instance.items_section.iter() {
-            for asked in items {
-                if available.index == *asked && available.assigned_city_id == city {
-                    weight += available.weight;
-                    profit += available.profit;
-                }
+        let mut caught = 0;
+
+        for asked in items {
+            let item_details = self.get_item_details(*asked);
+
+            if item_details.assigned_city_id == city {
+                caught += 1;
+                weight += item_details.weight;
+                profit += item_details.profit;
             }
         }
-        (weight, profit)
+        (weight, profit, caught)
     }
 
     pub fn speed_descresc_per_weight(&self) -> f64 {
@@ -84,7 +94,30 @@ impl<'a> SuperFile<'a> {
             / (self.instance.capacity_of_knapsack.unwrap() as f64)
     }
 
+    pub fn get_capacity_of_knapsack(&self) -> u32 {
+        self.instance.capacity_of_knapsack.unwrap()
+    }
+
+    pub fn get_max_time(&self) -> u32 {
+        self.instance.max_time.unwrap()
+    }
+
     pub fn get_distance(&self, a: &u32, b: &u32) -> u32 {
+        if a == b {
+            return 0;
+        };
+        // o menor valor é a linha
+        // menos um por causa do index
+        // --
+        // a coluna é o maior valor menos a linha
+        // menos um por causa do index
+        //      1    2   3   4
+        //      -    -   -   -
+        // 1         5   6   8
+        // 2             8   6
+        // 3                 5
+        // 4
+
         let min = a.min(b);
         let max = a.max(b);
 
@@ -96,6 +129,46 @@ impl<'a> SuperFile<'a> {
             .expect("unable to get line")
             .get(row)
             .expect("unable to get row")
+    }
+}
+
+#[cfg(test)]
+mod test_full {
+
+    use std::fs::File;
+    use std::io::prelude::*;
+
+    use super::*;
+
+    #[test]
+    fn integration() {
+        let mut f = File::open("./input-a/instances/ex4-n5_1.thop").expect("file not found");
+
+        let mut contents = String::new();
+        f.read_to_string(&mut contents)
+            .expect("something went wrong reading the file");
+
+        let instance = parse_instance(&contents);
+        let super_file = SuperFile::new(&instance);
+
+        assert_eq!(super_file.get_distance(&1, &1), 0);
+        assert_eq!(super_file.get_distance(&1, &2), 5);
+        assert_eq!(super_file.get_distance(&2, &1), 5);
+        assert_eq!(super_file.get_distance(&1, &3), 6);
+        assert_eq!(super_file.get_distance(&3, &1), 6);
+        assert_eq!(super_file.get_distance(&1, &4), 8);
+        assert_eq!(super_file.get_distance(&4, &1), 8);
+        assert_eq!(super_file.get_distance(&2, &3), 8);
+        assert_eq!(super_file.get_distance(&3, &2), 8);
+        assert_eq!(super_file.get_distance(&2, &4), 6);
+        assert_eq!(super_file.get_distance(&4, &2), 6);
+        assert_eq!(super_file.get_distance(&3, &4), 5);
+        assert_eq!(super_file.get_distance(&4, &3), 5);
+
+        assert_eq!(super_file.visit_city(2, &[1, 2].to_vec()), (5, 50, 2));
+        assert_eq!(super_file.visit_city(3, &[3, 4, 5].to_vec()), (5, 180, 3));
+
+        assert_eq!(super_file.speed_descresc_per_weight(), 0.3);
     }
 }
 
@@ -129,34 +202,39 @@ enum ParsingStage {
 }
 
 fn parse_field(left_side: &str, right_side: &str, parsed_file: &mut THOPFile) -> ParsingStage {
-    match left_side.as_ref() {
-        "PROBLEM NAME" => {
+    match RE.replace_all(left_side, "").to_string().as_ref() {
+        "PROBLEMNAME" => {
             parsed_file.problem_name = Some(right_side.to_string());
         }
-        "KNAPSACK DATA TYPE" => parse_knapsack_data_type(right_side, parsed_file),
+        "KNAPSACKDATATYPE" => parse_knapsack_data_type(right_side, parsed_file),
         "DIMENSION" => {
             parsed_file.dimension = Some(right_side.parse::<u32>().unwrap());
         }
-        "NUMBER OF ITEMS" => {
+        "NUMBEROFITEMS" => {
             parsed_file.number_of_items = Some(right_side.parse::<u32>().unwrap());
         }
-        "CAPACITY OF KNAPSACK" => {
+        "CAPACITYOFKNAPSACK" => {
             parsed_file.capacity_of_knapsack = Some(right_side.parse::<u32>().unwrap());
         }
-        "MAX TIME" => {
+        "MAXTIME" => {
             parsed_file.max_time = Some(right_side.parse::<u32>().unwrap());
         }
-        "MIN SPEED" => {
+        "MINSPEED" => {
             parsed_file.min_speed = Some(right_side.parse::<f64>().unwrap());
         }
-        "MAX SPEED" => {
+        "MAXSPEED" => {
             parsed_file.max_speed = Some(right_side.parse::<f64>().unwrap());
         }
         "EDGE_WEIGHT_TYPE" => parse_edge_weight_type(right_side, parsed_file),
-        "NODE_COORD_SECTION      (INDEX, X, Y)" => {
+        "NODE_COORD_SECTION(INDEX,X,Y)" => {
             return ParsingStage::ParseCoords;
         }
-        "ITEMS SECTION	(INDEX, PROFIT, WEIGHT, ASSIGNED_CITY_ID)" => {
+        // no tipo do input-a é assim
+        "ITEMSSECTION(INDEX,PROFIT,WEIGHT,ASSIGNED_CITY_ID)" => {
+            return ParsingStage::ParseItems;
+        }
+        // no tipo do input-b é assim
+        "ITEMSSECTION(INDEX,PROFIT,WEIGHT,ASSIGNEDNODENUMBER)" => {
             return ParsingStage::ParseItems;
         }
         _ => panic!("Line not recognized {}", left_side),
@@ -180,7 +258,14 @@ fn parse_coords(line: &str) -> NodeCoordSection {
 }
 
 fn parse_items(line: &str) -> ItemSection {
-    let nums: Vec<&str> = line.split("\t").collect();
+    // no tipo do input a é assim
+    let mut nums: Vec<&str> = line.split("\t").collect();
+
+    if nums.len() == 1 {
+        // no tipo do input-b é assim
+        nums = line.split(" ").collect();
+    }
+
     let _index = nums.get(0).unwrap();
     let _profit = nums.get(1).unwrap();
     let _weight = nums.get(2).unwrap();

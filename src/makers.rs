@@ -1,6 +1,16 @@
 use parser;
 use std::collections::HashMap;
 
+pub fn make_hash_map<'a>(
+    items: &'a Vec<parser::ItemSection>,
+) -> HashMap<u32, &'a parser::ItemSection> {
+    let mut h = HashMap::new();
+    for item in items.iter() {
+        h.insert(item.index, item);
+    }
+    h
+}
+
 pub fn make_distance_matrix(coords: &Vec<parser::NodeCoordSection>) -> Vec<Vec<u32>> {
     let mut h = HashMap::new();
     for coord in coords.iter() {
@@ -76,11 +86,14 @@ mod test_parse_solution {
         let mut v: Vec<Vec<u32>> = Vec::default();
 
         v.push([5, 6, 8].to_vec());
-        v.push([8, 7].to_vec());
+        v.push([8, 6].to_vec());
         v.push([5].to_vec());
 
-        v.iter()
-            .zip(make_distance_matrix(&nodes))
-            .all(|(a, b)| utils::vec_compare(a, &b));
+        assert_eq!(
+            v.iter()
+                .zip(make_distance_matrix(&nodes))
+                .all(|(a, b)| utils::vec_compare(a, &b)),
+            true
+        );
     }
 }

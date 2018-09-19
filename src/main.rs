@@ -29,9 +29,9 @@ fn main() {
     f2.read_to_string(&mut contents2)
         .expect("something went wrong reading the file");
 
-    let instance = parse_instance(&contents);
     let solution = parse_solution(&contents2);
 
+    let instance = parse_instance(&contents);
     let super_file = SuperFile::new(&instance);
 
     evaluate::evaluate(super_file, solution);
