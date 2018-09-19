@@ -2,21 +2,21 @@ use instance::Instance;
 use parser;
 use std::collections::HashMap;
 
-struct Evaluator<'a> {
+pub struct Evaluator<'a> {
     instance: &'a Instance<'a>,
     // solution: &'a parser::SolutionFile,
 }
 
 #[derive(Debug)]
-struct CalcResult {
-    time: f64,
-    weight: u32,
-    profit: u32,
-    okay: bool,
+pub struct CalcResult {
+    pub time: f64,
+    pub weight: u32,
+    pub profit: u32,
+    pub okay: bool,
 }
 
 impl<'a> Evaluator<'a> {
-    fn calc(&self, solution: &parser::SolutionFile) -> CalcResult {
+    pub fn calc(&self, solution: &parser::SolutionFile) -> CalcResult {
         let mut weight: u32 = 0;
         let mut profit: u32 = 0;
         let mut time: f64 = 0.0;
@@ -88,16 +88,7 @@ impl<'a> Evaluator<'a> {
         }
     }
 
-    fn new(instance: &'a Instance) -> Evaluator<'a> {
+    pub fn new(instance: &'a Instance) -> Evaluator<'a> {
         Evaluator { instance: instance }
     }
-}
-
-pub fn evaluate(instance: &Instance, solution: &parser::SolutionFile) {
-    let ev = Evaluator::new(&instance);
-    let c = ev.calc(&solution);
-    println!("Profit: {}", c.profit);
-    println!("Time: {}", c.time);
-    // println!("Weight: {}", c.weight);
-    // println!("Okay: {}", c.okay);
 }

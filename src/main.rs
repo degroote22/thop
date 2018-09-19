@@ -6,7 +6,6 @@ mod instance;
 mod makers;
 mod parser;
 mod utils;
-// use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
@@ -165,7 +164,9 @@ fn main() {
         let instance = instance::Instance::new(&instance_file);
 
         println!("Evaluating {} {}", i, s);
-        evaluate::evaluate(&instance, &solution);
+        let c = evaluate::Evaluator::new(&instance).calc(&solution);
+        println!("Profit: {}", c.profit);
+        println!("Time: {}", c.time);
         println!("");
     }
 }
