@@ -165,7 +165,7 @@ fn main() {
         let instance = instance::Instance::new(&instance_file);
 
         println!("Evaluating {} {}", i, s);
-        evaluate::evaluate(instance, solution);
+        evaluate::evaluate(&instance, &solution);
         println!("");
     }
 }

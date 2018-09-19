@@ -93,7 +93,7 @@ impl<'a> Evaluator<'a> {
     }
 }
 
-pub fn evaluate(instance: Instance, solution: parser::SolutionFile) {
+pub fn evaluate(instance: &Instance, solution: &parser::SolutionFile) {
     let ev = Evaluator::new(&instance);
     let c = ev.calc(&solution);
     println!("Profit: {}", c.profit);
