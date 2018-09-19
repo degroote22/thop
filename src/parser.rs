@@ -52,14 +52,14 @@ pub struct THOPFile {
 pub struct SuperFile<'a> {
     instance: &'a THOPFile,
     distance_matrix: Vec<Vec<u32>>,
-    items_hash: HashMap<u32, &'a ItemSection>,
+    items_per_city: HashMap<u32, Vec<&'a ItemSection>>,
 }
 impl<'a> SuperFile<'a> {
     pub fn new(instance: &'a THOPFile) -> SuperFile {
         SuperFile {
             instance,
             distance_matrix: makers::make_distance_matrix(&instance.node_coord_section),
-            items_hash: makers::make_hash_map(&instance.items_section),
+            items_per_city: makers::make_items_per_city(&instance.items_section),
         }
     }
 
@@ -67,24 +67,22 @@ impl<'a> SuperFile<'a> {
         self.instance.max_speed.unwrap()
     }
 
-    pub fn get_item_details(&self, asked: u32) -> &ItemSection {
-        self.items_hash.get(&asked).unwrap()
-    }
-
-    pub fn visit_city(&self, city: u32, items: &Vec<u32>) -> (u32, u32, u32) {
+    pub fn visit_city(&self, city: u32, asked_items_hash: &HashMap<u32, bool>) -> (u32, u32, u32) {
         // (u32: weight, u32: profit, u32: n items catched)
         let mut weight = 0;
         let mut profit = 0;
         let mut caught = 0;
-
-        for asked in items {
-            let item_details = self.get_item_details(*asked);
-
-            if item_details.assigned_city_id == city {
-                caught += 1;
-                weight += item_details.weight;
-                profit += item_details.profit;
+        match self.items_per_city.get(&city) {
+            Some(items) => {
+                for item in items {
+                    if asked_items_hash.contains_key(&item.index) {
+                        caught += 1;
+                        weight += item.weight;
+                        profit += item.profit;
+                    }
+                }
             }
+            None => {}
         }
         (weight, profit, caught)
     }
@@ -165,8 +163,16 @@ mod test_full {
         assert_eq!(super_file.get_distance(&3, &4), 5);
         assert_eq!(super_file.get_distance(&4, &3), 5);
 
-        assert_eq!(super_file.visit_city(2, &[1, 2].to_vec()), (5, 50, 2));
-        assert_eq!(super_file.visit_city(3, &[3, 4, 5].to_vec()), (5, 180, 3));
+        let mut h1 = HashMap::new();
+        h1.insert(1, true);
+        h1.insert(2, true);
+
+        let mut h2 = HashMap::new();
+        h2.insert(3, true);
+        h2.insert(4, true);
+        h2.insert(5, true);
+        assert_eq!(super_file.visit_city(2, &h1), (5, 50, 2));
+        assert_eq!(super_file.visit_city(3, &h2), (5, 180, 3));
 
         assert_eq!(super_file.speed_descresc_per_weight(), 0.3);
     }
@@ -180,9 +186,16 @@ fn parse_knapsack_data_type(right_side: &str, parsed_file: &mut THOPFile) {
         "bounded-strongly-correlated" => {
             parsed_file.knapsack_data_type = Some(KnapsackDataType::BoundedStronglyCorrelated);
         }
+        "boundedstronglycorr" => {
+            parsed_file.knapsack_data_type = Some(KnapsackDataType::BoundedStronglyCorrelated);
+        }
         "uncorrelated-similar-weights" => {
             parsed_file.knapsack_data_type = Some(KnapsackDataType::UncorrelatedSimilarWeights);
         }
+        "uncorrelated,similarweights" => {
+            parsed_file.knapsack_data_type = Some(KnapsackDataType::UncorrelatedSimilarWeights);
+        }
+
         _ => panic!("Should have a Knapsack Data Type, got: {}", right_side),
     }
 }

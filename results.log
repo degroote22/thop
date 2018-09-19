@@ -1,0 +1,212 @@
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_a.thop.sol
+Time: 8
+Weight: 3
+Profit: 60
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_b.thop.sol
+Time: 8
+Weight: 3
+Profit: 60
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_c.thop.sol
+Time: 0
+Weight: 3
+Profit: 100
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_d.thop.sol
+Time: 0
+Weight: 2
+Profit: 80
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_e.thop.sol
+Not okay!
+caught_items 1
+asked_items 2
+time 0
+max_time 75
+weight 1
+get_capacity_of_knapsack 3
+
+Time: 0
+Weight: 1
+Profit: 40
+Okay: false
+
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_f.thop.sol
+Time: 25.5
+Weight: 3
+Profit: 60
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_2.thop ./input-a/solutions/ex4-n5_a.thop.sol
+Time: 8
+Weight: 3
+Profit: 60
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_d.thop.sol
+Time: 0
+Weight: 2
+Profit: 80
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_a.thop.sol
+Not okay!
+caught_items 2
+asked_items 2
+time 8
+max_time 75
+weight 3
+get_capacity_of_knapsack 2
+
+Time: 8
+Weight: 3
+Profit: 60
+Okay: false
+
+Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_b.thop.sol
+Not okay!
+caught_items 2
+asked_items 2
+time 8
+max_time 75
+weight 3
+get_capacity_of_knapsack 2
+
+Time: 8
+Weight: 3
+Profit: 60
+Okay: false
+
+Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_c.thop.sol
+Not okay!
+caught_items 1
+asked_items 1
+time 0
+max_time 75
+weight 3
+get_capacity_of_knapsack 2
+
+Time: 0
+Weight: 3
+Profit: 100
+Okay: false
+
+Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_d.thop.sol
+Time: 0
+Weight: 2
+Profit: 80
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_01.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_01.thop.sol
+Time: 100.09863957369515
+Weight: 12051
+Profit: 14851
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_02.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_02.thop.sol
+Time: 227.6690282240754
+Weight: 10980
+Profit: 14280
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_03.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_03.thop.sol
+Time: 257.09765127566385
+Weight: 12111
+Profit: 15311
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_01.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_01.thop.sol
+Time: 259.2266632358753
+Weight: 26514
+Profit: 31614
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_02.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_02.thop.sol
+Time: 371.590384683067
+Weight: 35400
+Profit: 42400
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_03.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_03.thop.sol
+Time: 501.94510631054
+Weight: 37746
+Profit: 43946
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_01.thop ./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_01.thop.sol
+Time: 304.2764528265801
+Weight: 79345
+Profit: 50511
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_02.thop ./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_02.thop.sol
+Time: 460.7375066306758
+Weight: 107464
+Profit: 61164
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_03.thop ./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_03.thop.sol
+Time: 627.5443041958537
+Weight: 117506
+Profit: 75055
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_01_01.thop ./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_01_01.thop.sol
+Time: 1131.6124480375902
+Weight: 15819
+Profit: 18719
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_05_01.thop ./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_05_01.thop.sol
+Time: 1671.9471052245694
+Weight: 26065
+Profit: 30565
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_10_01.thop ./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_10_01.thop.sol
+Time: 1814.4633108058104
+Weight: 34725
+Profit: 39925
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n2780_bounded-strongly-corr_10_03.thop ./input-b/solutions/a280-thop/a280_n2780_bounded-strongly-corr_10_03.thop.sol
+Time: 3913.7542461009243
+Weight: 244410
+Profit: 296210
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n2780_uncorr_10_03.thop ./input-b/solutions/a280-thop/a280_n2780_uncorr_10_03.thop.sol
+Time: 3905.3093290593024
+Weight: 94788
+Profit: 140163
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n2780_uncorr-similar-weights_10_03.thop ./input-b/solutions/a280-thop/a280_n2780_uncorr-similar-weights_10_03.thop.sol
+Time: 4061.295814690432
+Weight: 234981
+Profit: 150116
+Okay: true
+
+Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n998_bounded-strongly-corr_01_01.thop ./input-b/solutions/dsj1000-thop/dsj1000_n998_bounded-strongly-corr_01_01.thop.sol
+Time: 166562160.33780724
+Weight: 87825
+Profit: 109925
+Okay: true
+
+Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n998_uncorr_01_01.thop ./input-b/solutions/dsj1000-thop/dsj1000_n998_uncorr_01_01.thop.sol
+Time: 149916005.1892973
+Weight: 45300
+Profit: 56585
+Okay: true
+
+Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n998_uncorr-similar-weights_01_01.thop ./input-b/solutions/dsj1000-thop/dsj1000_n998_uncorr-similar-weights_01_01.thop.sol
+Time: 69355378.27888389
+Weight: 85378
+Profit: 47644
+Okay: true
+

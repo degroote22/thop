@@ -1,8 +1,9 @@
 use parser;
+use std::collections::HashMap;
 
 struct Evaluator<'a> {
     instance: &'a parser::SuperFile<'a>,
-    solution: &'a parser::SolutionFile,
+    // solution: &'a parser::SolutionFile,
 }
 
 #[derive(Debug)]
@@ -14,7 +15,7 @@ struct CalcResult {
 }
 
 impl<'a> Evaluator<'a> {
-    fn calc(&self) -> CalcResult {
+    fn calc(&self, solution: &parser::SolutionFile) -> CalcResult {
         let mut weight: u32 = 0;
         let mut profit: u32 = 0;
         let mut time: f64 = 0.0;
@@ -22,9 +23,14 @@ impl<'a> Evaluator<'a> {
 
         let spw = self.instance.speed_descresc_per_weight();
 
-        let mut route = self.solution.route.iter();
+        let mut route = solution.route.iter();
         let mut last_city = route.next();
         let mut next_city = route.next();
+
+        let mut asked_items_hash: HashMap<u32, bool> = HashMap::new();
+        for asked in solution.items.iter() {
+            asked_items_hash.insert(*asked, true);
+        }
 
         while next_city.is_some() {
             let distance = self
@@ -38,7 +44,7 @@ impl<'a> Evaluator<'a> {
             // add weight and profit and caught
             let (w, p, c) = self
                 .instance
-                .visit_city(*last_city.unwrap(), &self.solution.items);
+                .visit_city(*last_city.unwrap(), &asked_items_hash);
             weight += w;
             profit += p;
             caught_items += c;
@@ -50,28 +56,28 @@ impl<'a> Evaluator<'a> {
         // add weight and profit and caught
         let (w, p, c) = self
             .instance
-            .visit_city(*last_city.unwrap(), &self.solution.items);
+            .visit_city(*last_city.unwrap(), &asked_items_hash);
         weight += w;
         profit += p;
         caught_items += c;
 
-        let okay = (caught_items as usize) == self.solution.items.len()
-            && time < self.instance.get_max_time().into()
-            && weight < self.instance.get_capacity_of_knapsack();
+        let okay = (caught_items as usize) == solution.items.len()
+            && time <= self.instance.get_max_time().into()
+            && weight <= self.instance.get_capacity_of_knapsack();
 
-        if okay == false {
-            println!("Not okay!");
-            println!("caught_items {}", caught_items);
-            println!("asked_items {}", self.solution.items.len());
-            println!("time {}", time);
-            println!("max_time {}", self.instance.get_max_time());
-            println!("weight {}", weight);
-            println!(
-                "get_capacity_of_knapsack {}",
-                self.instance.get_capacity_of_knapsack()
-            );
-            println!("");
-        }
+        // if okay == false {
+        //     println!("Not okay!");
+        //     println!("caught_items {}", caught_items);
+        //     println!("asked_items {}", solution.items.len());
+        //     println!("time {}", time);
+        //     println!("max_time {}", self.instance.get_max_time());
+        //     println!("weight {}", weight);
+        //     println!(
+        //         "get_capacity_of_knapsack {}",
+        //         self.instance.get_capacity_of_knapsack()
+        //     );
+        //     println!("");
+        // }
 
         CalcResult {
             time,
@@ -81,17 +87,14 @@ impl<'a> Evaluator<'a> {
         }
     }
 
-    fn new(instance: &'a parser::SuperFile, solution: &'a parser::SolutionFile) -> Evaluator<'a> {
-        Evaluator {
-            instance: instance,
-            solution,
-        }
+    fn new(instance: &'a parser::SuperFile) -> Evaluator<'a> {
+        Evaluator { instance: instance }
     }
 }
 
 pub fn evaluate(instance: parser::SuperFile, solution: parser::SolutionFile) {
-    let ev = Evaluator::new(&instance, &solution);
-    let c = ev.calc();
+    let ev = Evaluator::new(&instance);
+    let c = ev.calc(&solution);
     println!("Time: {}", c.time);
     println!("Weight: {}", c.weight);
     println!("Profit: {}", c.profit);
