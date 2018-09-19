@@ -8,16 +8,6 @@ pub struct Instance<'a> {
     items_per_city: HashMap<u32, Vec<&'a parser::ItemSection>>,
 }
 impl<'a> Instance<'a> {
-    // pub fn parse(contents: &str) -> Instance<'a> {
-    //     let instance = &parser::instance::parse(&contents);
-
-    //     Instance {
-    //         instance,
-    //         distance_matrix: makers::make_distance_matrix(&instance.node_coord_section),
-    //         items_per_city: makers::make_items_per_city(&instance.items_section),
-    //     }
-    // }
-
     pub fn new(instance: &'a parser::THOPFile) -> Instance {
         Instance {
             instance,

@@ -1,16 +1,6 @@
 use parser;
 use std::collections::HashMap;
 
-// pub fn make_hash_map<'a>(
-//     items: &'a Vec<parser::ItemSection>,
-// ) -> HashMap<u32, &'a parser::ItemSection> {
-//     let mut h = HashMap::new();
-//     for item in items.iter() {
-//         h.insert(item.index, item);
-//     }
-//     h
-// }
-
 pub fn make_items_per_city<'a>(
     items: &'a Vec<parser::ItemSection>,
 ) -> HashMap<u32, Vec<&'a parser::ItemSection>> {

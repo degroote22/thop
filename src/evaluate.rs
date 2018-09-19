@@ -4,7 +4,6 @@ use std::collections::HashMap;
 
 pub struct Evaluator<'a> {
     instance: &'a Instance<'a>,
-    // solution: &'a parser::SolutionFile,
 }
 
 #[derive(Debug)]
@@ -34,6 +33,15 @@ impl<'a> Evaluator<'a> {
         }
 
         while next_city.is_some() {
+            // add weight and profit and caught
+            let (w, p, c) = self
+                .instance
+                .visit_city(*last_city.unwrap(), &asked_items_hash);
+            weight += w;
+            profit += p;
+            caught_items += c;
+
+            //walk
             let distance = self
                 .instance
                 .get_distance(last_city.unwrap(), next_city.unwrap());
@@ -42,13 +50,6 @@ impl<'a> Evaluator<'a> {
 
             time += (distance as f64) / speed;
 
-            // add weight and profit and caught
-            let (w, p, c) = self
-                .instance
-                .visit_city(*last_city.unwrap(), &asked_items_hash);
-            weight += w;
-            profit += p;
-            caught_items += c;
             // itera de novo
             last_city = next_city;
             next_city = route.next();
