@@ -9,4 +9,4 @@ regex = "1"
 
 [[bin]]
 name = "INF492"
-path = "main.rs"
+path = "src/main.rs"

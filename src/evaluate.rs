@@ -1,41 +1,79 @@
 use parser;
-use std::collections::HashMap;
 
 struct Evaluator<'a> {
-    instance: &'a parser::THOPFile,
+    instance: &'a parser::SuperFile<'a>,
     solution: &'a parser::SolutionFile,
 }
 
+#[derive(Debug)]
+struct CalcResult {
+    time: f64,
+    weight: u32,
+    profit: u32,
+}
+
 impl<'a> Evaluator<'a> {
-    fn calc(&self) {
+    fn calc(&self) -> CalcResult {
         let mut route = self.solution.route.iter();
         let mut last_city = route.next();
-        let mut city = route.next();
-        let mut cost = 0.0;
-        while city.is_some() {
-            let new_cost = 0.0;
+        let mut next_city = route.next();
+        let mut weight: u32 = 0;
+        let mut profit: u32 = 0;
+        let mut time: f64 = 0.0;
+        while next_city.is_some() {
+            println!("{:?}", next_city);
+            println!("{:?}", last_city);
+            let distance = self
+                .instance
+                .get_distance(last_city.unwrap(), next_city.unwrap());
+            println!("distance {:?}", distance);
 
-            last_city = city;
-            city = Some(&0);
+            let speed: f64 = self.instance.get_max_speed()
+                - (weight as f64) * self.instance.speed_descresc_per_weight();
 
-            cost += new_cost;
+            time += (distance as f64) / speed;
+
+            // add weight and profit
+
+            let (w, p) = self
+                .instance
+                .visit_city(*next_city.unwrap(), &self.solution.items);
+            weight += w;
+            profit += p;
+
+            last_city = next_city;
+            next_city = route.next();
+        }
+        CalcResult {
+            time,
+            weight,
+            profit,
         }
     }
 
-    fn get_distance(&self, from: u32, to: u32) {}
+    fn new(instance: &'a parser::SuperFile, solution: &'a parser::SolutionFile) -> Evaluator<'a> {
+        Evaluator {
+            instance: instance,
+            solution,
+        }
+    }
 }
+// fn get_items_hash(items: &Vec<u32>) -> HashMap<u32, bool> {
+//     let mut hash = HashMap::new();
 
-pub fn evaluate(instance: parser::THOPFile, solution: parser::SolutionFile) {
-    println!("{:?}", instance);
+//     for item in items {
+//         hash.insert(*item, true);
+//     }
+//     hash
+// }
+
+pub fn evaluate(instance: parser::SuperFile, solution: parser::SolutionFile) {
+    // println!("{:?}", instance.instance);
     println!("{:?}", solution);
 
-    let first_city = solution.route.get(0).unwrap();
-    // let cost = _eval_route_item(instance, solution, *first_city);
-    println!("Cost: {}", first_city);
-
-    let mut ev = Evaluator {
-        instance: &instance,
-        solution: &solution,
-    };
-    ev.calc();
+    let ev = Evaluator::new(&instance, &solution);
+    let c = ev.calc();
+    println!("Time: {}", c.time);
+    println!("Weight: {}", c.profit);
+    println!("Profit: {}", c.weight);
 }

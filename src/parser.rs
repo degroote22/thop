@@ -1,30 +1,32 @@
+use makers;
 use regex::Regex;
+use utils;
 
 lazy_static! {
     static ref RE: Regex = Regex::new("\\s").unwrap();
 }
 
 #[derive(Debug)]
-enum KnapsackDataType {
+pub enum KnapsackDataType {
     Uncorrelated,
     BoundedStronglyCorrelated,
     UncorrelatedSimilarWeights,
 }
 
 #[derive(Debug)]
-enum EdgeWeightType {
+pub enum EdgeWeightType {
     Ceil2d,
 }
 
-#[derive(Debug, Clone)]
-struct NodeCoordSection {
-    index: u32,
-    x: f64,
-    y: f64,
+#[derive(Debug, PartialEq)]
+pub struct NodeCoordSection {
+    pub index: u32,
+    pub x: f64,
+    pub y: f64,
 }
 
-#[derive(Debug, Clone)]
-struct ItemSection {
+#[derive(Debug, PartialEq)]
+pub struct ItemSection {
     index: u32,
     profit: u32,
     weight: u32,
@@ -44,6 +46,57 @@ pub struct THOPFile {
     edge_weight_type: Option<EdgeWeightType>,
     node_coord_section: Vec<NodeCoordSection>,
     items_section: Vec<ItemSection>,
+}
+
+pub struct SuperFile<'a> {
+    instance: &'a THOPFile,
+    distance_matrix: Vec<Vec<u32>>,
+}
+impl<'a> SuperFile<'a> {
+    pub fn new(instance: &'a THOPFile) -> SuperFile {
+        SuperFile {
+            instance,
+            distance_matrix: makers::make_distance_matrix(&instance.node_coord_section),
+        }
+    }
+
+    pub fn get_max_speed(&self) -> f64 {
+        self.instance.max_speed.unwrap()
+    }
+
+    pub fn visit_city(&self, city: u32, items: &Vec<u32>) -> (u32, u32) {
+        // (u32: weight, u32: profit)
+        let mut weight = 0;
+        let mut profit = 0;
+        for available in self.instance.items_section.iter() {
+            for asked in items {
+                if available.index == *asked && available.assigned_city_id == city {
+                    weight += available.weight;
+                    profit += available.profit;
+                }
+            }
+        }
+        (weight, profit)
+    }
+
+    pub fn speed_descresc_per_weight(&self) -> f64 {
+        (self.instance.max_speed.unwrap() - self.instance.min_speed.unwrap())
+            / (self.instance.capacity_of_knapsack.unwrap() as f64)
+    }
+
+    pub fn get_distance(&self, a: &u32, b: &u32) -> u32 {
+        let min = a.min(b);
+        let max = a.max(b);
+
+        let line = (*min - 1) as usize;
+        let row = (*max - min - 1) as usize;
+        *self
+            .distance_matrix
+            .get(line)
+            .expect("unable to get line")
+            .get(row)
+            .expect("unable to get row")
+    }
 }
 
 fn parse_knapsack_data_type(right_side: &str, parsed_file: &mut THOPFile) {
@@ -111,7 +164,7 @@ fn parse_field(left_side: &str, right_side: &str, parsed_file: &mut THOPFile) ->
     return ParsingStage::Default;
 }
 
-fn parse_coords(line: &str, parsed_file: &mut THOPFile) {
+fn parse_coords(line: &str) -> NodeCoordSection {
     let nums: Vec<&str> = line.split(" ").collect();
     let _index = nums.get(0).unwrap();
     let _x = nums.get(1).unwrap();
@@ -119,14 +172,14 @@ fn parse_coords(line: &str, parsed_file: &mut THOPFile) {
     let index = RE.replace_all(_index, "").to_string();
     let x = RE.replace_all(_x, "").to_string();
     let y = RE.replace_all(_y, "").to_string();
-    parsed_file.node_coord_section.push(NodeCoordSection {
+    NodeCoordSection {
         index: index.parse::<u32>().unwrap(),
         x: x.parse::<f64>().unwrap(),
         y: y.parse::<f64>().unwrap(),
-    })
+    }
 }
 
-fn parse_items(line: &str, parsed_file: &mut THOPFile) {
+fn parse_items(line: &str) -> ItemSection {
     let nums: Vec<&str> = line.split("\t").collect();
     let _index = nums.get(0).unwrap();
     let _profit = nums.get(1).unwrap();
@@ -136,12 +189,12 @@ fn parse_items(line: &str, parsed_file: &mut THOPFile) {
     let profit = RE.replace_all(_profit, "").to_string();
     let weight = RE.replace_all(_weight, "").to_string();
     let assigned_city_id = RE.replace_all(_assigned_city_id, "").to_string();
-    parsed_file.items_section.push(ItemSection {
+    ItemSection {
         index: index.parse::<u32>().unwrap(),
         profit: profit.parse::<u32>().unwrap(),
         weight: weight.parse::<u32>().unwrap(),
         assigned_city_id: assigned_city_id.parse::<u32>().unwrap(),
-    })
+    }
 }
 
 pub fn parse_instance(contents: &str) -> THOPFile {
@@ -155,8 +208,8 @@ pub fn parse_instance(contents: &str) -> THOPFile {
         min_speed: None,
         max_speed: None,
         edge_weight_type: None,
-        node_coord_section: [].to_vec(),
-        items_section: [].to_vec(),
+        node_coord_section: Vec::default(),
+        items_section: Vec::default(),
     };
 
     let lines = contents.lines();
@@ -178,12 +231,44 @@ pub fn parse_instance(contents: &str) -> THOPFile {
                 ParsingStage::Default => {
                     panic!("Wrong stage when parsing. Expected to be capturing block.")
                 }
-                ParsingStage::ParseCoords => parse_coords(line, &mut parsed_file),
-                ParsingStage::ParseItems => parse_items(line, &mut parsed_file),
+                ParsingStage::ParseCoords => {
+                    parsed_file.node_coord_section.push(parse_coords(line))
+                }
+                ParsingStage::ParseItems => parsed_file.items_section.push(parse_items(line)),
             }
         }
     }
     return parsed_file;
+}
+
+#[cfg(test)]
+mod test_parse_instance {
+    use super::*;
+
+    #[test]
+    fn parse_coords_works() {
+        assert_eq!(
+            parse_coords("1	 1.0	 1.0"),
+            NodeCoordSection {
+                index: 1,
+                x: 1.0,
+                y: 1.0,
+            },
+        );
+    }
+
+    #[test]
+    fn parse_items_works() {
+        assert_eq!(
+            parse_items("1	 20	2	2"),
+            ItemSection {
+                index: 1,
+                profit: 20,
+                weight: 2,
+                assigned_city_id: 2
+            }
+        )
+    }
 }
 
 #[derive(Debug)]
@@ -192,16 +277,10 @@ pub struct SolutionFile {
     pub items: Vec<u32>,
 }
 
-fn vec_compare(va: &[u32], vb: &[u32]) -> bool {
-    (va.len() == vb.len()) &&  // zip stops at the shortest
-     va.iter() // iterate
-       .zip(vb) // zipa
-       .all(|(a,b)| a==b) // compara
-}
-
 impl PartialEq for SolutionFile {
     fn eq(&self, other: &SolutionFile) -> bool {
-        vec_compare(&self.route, &other.route) && vec_compare(&self.items, &other.items)
+        utils::vec_compare(&self.route, &other.route)
+            && utils::vec_compare(&self.items, &other.items)
     }
 }
 
@@ -232,7 +311,7 @@ pub fn parse_solution(contents: &str) -> SolutionFile {
 }
 
 #[cfg(test)]
-mod tests {
+mod test_parse_solution {
     use super::*;
 
     #[test]

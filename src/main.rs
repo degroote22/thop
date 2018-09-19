@@ -1,9 +1,12 @@
 #[macro_use]
 extern crate lazy_static;
 extern crate regex;
+mod makers;
 mod parser;
+mod utils;
 use parser::parse_instance;
 use parser::parse_solution;
+use parser::SuperFile;
 mod evaluate;
 use std::env;
 use std::fs::File;
@@ -29,5 +32,7 @@ fn main() {
     let instance = parse_instance(&contents);
     let solution = parse_solution(&contents2);
 
-    evaluate::evaluate(instance, solution);
+    let super_file = SuperFile::new(&instance);
+
+    evaluate::evaluate(super_file, solution);
 }
