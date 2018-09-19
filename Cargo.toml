@@ -1,0 +1,12 @@
+[package]
+name = "INF492"
+version = "0.1.0"
+authors = ["Lucas de Ávila Martins <lucas.a.martins@ufv.br>"]
+
+[dependencies]
+lazy_static = "1.1.0"
+regex = "1"
+
+[[bin]]
+name = "INF492"
+path = "main.rs"
