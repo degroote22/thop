@@ -1,12 +1,12 @@
 Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_a.thop.sol
 Profit: 60
-Time: 20
-Okay: true
+Time: 99.99999999999993
+Okay: false
 
 Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_b.thop.sol
 Profit: 60
-Time: 11.428571428571429
-Okay: true
+Time: 91.42857142857136
+Okay: false
 
 Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_c.thop.sol
 Profit: 100
@@ -25,13 +25,13 @@ Okay: false
 
 Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_f.thop.sol
 Profit: 60
-Time: 74.99999999999996
-Okay: true
+Time: 154.9999999999999
+Okay: false
 
 Evaluating ./input-a/instances/ex4-n5_2.thop ./input-a/solutions/ex4-n5_a.thop.sol
 Profit: 60
-Time: 20
-Okay: true
+Time: 99.99999999999993
+Okay: false
 
 Evaluating ./input-a/instances/ex4-n5_2.thop ./input-a/solutions/ex4-n5_d.thop.sol
 Profit: 80
@@ -40,17 +40,17 @@ Okay: true
 
 Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_a.thop.sol
 Profit: 60
-Time: 80.00000000000001
+Time: inf
 Okay: false
 
 Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_b.thop.sol
 Profit: 60
-Time: 14.545454545454545
+Time: inf
 Okay: false
 
 Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_c.thop.sol
 Profit: 100
-Time: 0
+Time: inf
 Okay: false
 
 Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_d.thop.sol
@@ -60,106 +60,106 @@ Okay: true
 
 Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_01.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_01.thop.sol
 Profit: 14851
-Time: 140.306281710235
-Okay: true
+Time: 444.6424351976775
+Okay: false
 
 Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_02.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_02.thop.sol
 Profit: 14280
-Time: 265.4345137046565
-Okay: true
+Time: 335.55946299471736
+Okay: false
 
 Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_03.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_03.thop.sol
 Profit: 15311
-Time: 321.2145958671284
-Okay: true
+Time: 432.13367540551553
+Okay: false
 
 Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_01.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_01.thop.sol
 Profit: 31614
-Time: 268.8681458661183
-Okay: true
+Time: 316.13850418950705
+Okay: false
 
 Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_02.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_02.thop.sol
 Profit: 42400
-Time: 389.3110434832103
+Time: 430.63705841008203
 Okay: true
 
 Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_03.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_03.thop.sol
 Profit: 43946
-Time: 523.4605519317539
+Time: 583.4928557678795
 Okay: true
 
 Evaluating ./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_01.thop ./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_01.thop.sol
 Profit: 50511
-Time: 313.87421364432305
-Okay: true
+Time: 348.7968341524536
+Okay: false
 
 Evaluating ./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_02.thop ./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_02.thop.sol
 Profit: 61164
-Time: 476.75500022643575
-Okay: true
+Time: 525.332994077565
+Okay: false
 
 Evaluating ./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_03.thop ./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_03.thop.sol
 Profit: 75055
-Time: 643.5056341600946
+Time: 673.3114166273198
 Okay: true
 
 Evaluating ./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_01_01.thop ./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_01_01.thop.sol
 Profit: 18719
-Time: 1207.0458801672462
+Time: 1289.0734212181142
 Okay: true
 
 Evaluating ./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_05_01.thop ./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_05_01.thop.sol
 Profit: 30565
-Time: 1694.0804735844563
-Okay: true
+Time: 2050.567248860648
+Okay: false
 
 Evaluating ./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_10_01.thop ./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_10_01.thop.sol
 Profit: 39925
-Time: 1824.8020748715167
+Time: 1858.9123079852898
 Okay: true
 
 Evaluating ./input-b/instances/a280-thop/a280_n2780_bounded-strongly-corr_10_03.thop ./input-b/solutions/a280-thop/a280_n2780_bounded-strongly-corr_10_03.thop.sol
 Profit: 296210
-Time: 3923.642338790257
+Time: 4177.65003355348
 Okay: true
 
 Evaluating ./input-b/instances/a280-thop/a280_n2780_uncorr_10_03.thop ./input-b/solutions/a280-thop/a280_n2780_uncorr_10_03.thop.sol
 Profit: 140163
-Time: 3912.478920866733
+Time: 3931.783882961137
 Okay: true
 
 Evaluating ./input-b/instances/a280-thop/a280_n2780_uncorr-similar-weights_10_03.thop ./input-b/solutions/a280-thop/a280_n2780_uncorr-similar-weights_10_03.thop.sol
 Profit: 150116
-Time: 4070.1198009735754
+Time: 4324.2115677542815
 Okay: true
 
 Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n998_bounded-strongly-corr_01_01.thop ./input-b/solutions/dsj1000-thop/dsj1000_n998_bounded-strongly-corr_01_01.thop.sol
 Profit: 109925
-Time: 170654579.34297428
+Time: 175168326.79512888
 Okay: true
 
 Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n998_uncorr_01_01.thop ./input-b/solutions/dsj1000-thop/dsj1000_n998_uncorr_01_01.thop.sol
 Profit: 56585
-Time: 155106808.35127607
+Time: 158557947.09840757
 Okay: true
 
 Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n998_uncorr-similar-weights_01_01.thop ./input-b/solutions/dsj1000-thop/dsj1000_n998_uncorr-similar-weights_01_01.thop.sol
 Profit: 47644
-Time: 71020637.10272017
-Okay: true
+Time: 75345703.82571521
+Okay: false
 
 Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n4990_uncorr_01_03.thop ./input-b/solutions/dsj1000-thop/dsj1000_n4990_uncorr_01_03.thop.sol
 Profit: 95527
-Time: 26844802.833558805
-Okay: true
+Time: 27790078.84370867
+Okay: false
 
 Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n4990_uncorr_05_03.thop ./input-b/solutions/dsj1000-thop/dsj1000_n4990_uncorr_05_03.thop.sol
 Profit: 108301
-Time: 29192302.461112987
-Okay: true
+Time: 29948440.632695843
+Okay: false
 
 Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n4990_uncorr_10_03.thop ./input-b/solutions/dsj1000-thop/dsj1000_n4990_uncorr_10_03.thop.sol
 Profit: 123788
-Time: 29218514.307045165
+Time: 30225979.91263055
 Okay: true
 

@@ -3,6 +3,7 @@ extern crate lazy_static;
 extern crate regex;
 mod evaluate;
 mod greedy;
+mod inputs;
 mod instance;
 mod makers;
 mod parser;
@@ -11,7 +12,7 @@ mod utils;
 
 fn main() {
     // só pro compilador não falar que tem coisa não sendo usada
-    if false {
+    if true {
         printer::print_results_part_0();
     } else {
         printer::print_results_part_1();

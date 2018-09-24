@@ -1,157 +1,13 @@
 use evaluate;
 use greedy;
+use inputs;
 use instance;
 use parser;
 use std::fs::File;
 use std::io::prelude::*;
 
-static INSTANCES: [(&'static str, &'static str); 33] = [
-    // n5_1
-    (
-        "./input-a/instances/ex4-n5_1.thop",
-        "./input-a/solutions/ex4-n5_a.thop.sol",
-    ),
-    (
-        "./input-a/instances/ex4-n5_1.thop",
-        "./input-a/solutions/ex4-n5_b.thop.sol",
-    ),
-    (
-        "./input-a/instances/ex4-n5_1.thop",
-        "./input-a/solutions/ex4-n5_c.thop.sol",
-    ),
-    (
-        "./input-a/instances/ex4-n5_1.thop",
-        "./input-a/solutions/ex4-n5_d.thop.sol",
-    ),
-    (
-        "./input-a/instances/ex4-n5_1.thop",
-        "./input-a/solutions/ex4-n5_e.thop.sol",
-    ),
-    (
-        "./input-a/instances/ex4-n5_1.thop",
-        "./input-a/solutions/ex4-n5_f.thop.sol",
-    ),
-    // n5_2
-    (
-        "./input-a/instances/ex4-n5_2.thop",
-        "./input-a/solutions/ex4-n5_a.thop.sol",
-    ),
-    (
-        "./input-a/instances/ex4-n5_2.thop",
-        "./input-a/solutions/ex4-n5_d.thop.sol",
-    ),
-    // n5_3
-    (
-        "./input-a/instances/ex4-n5_3.thop",
-        "./input-a/solutions/ex4-n5_a.thop.sol",
-    ),
-    (
-        "./input-a/instances/ex4-n5_3.thop",
-        "./input-a/solutions/ex4-n5_b.thop.sol",
-    ),
-    (
-        "./input-a/instances/ex4-n5_3.thop",
-        "./input-a/solutions/ex4-n5_c.thop.sol",
-    ),
-    (
-        "./input-a/instances/ex4-n5_3.thop",
-        "./input-a/solutions/ex4-n5_d.thop.sol",
-    ),
-    // eil51_n147_bounded-strongly-corr_01_
-    (
-        "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_01.thop",
-        "./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_01.thop.sol",
-    ),
-    (
-        "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_02.thop",
-        "./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_02.thop.sol",
-    ),
-    (
-        "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_03.thop",
-        "./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_03.thop.sol",
-    ),
-    // eil51_n147_bounded-strongly-corr_05_
-    (
-        "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_01.thop",
-        "./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_01.thop.sol",
-    ),
-    (
-        "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_02.thop",
-        "./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_02.thop.sol",
-    ),
-    (
-        "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_03.thop",
-        "./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_03.thop.sol",
-    ),
-    // eil51_n490_uncorr-similar-weights_05_
-    (
-        "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_01.thop",
-        "./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_01.thop.sol",
-    ),
-    (
-        "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_02.thop",
-        "./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_02.thop.sol",
-    ),
-    (
-        "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_03.thop",
-        "./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_03.thop.sol",
-    ),
-    // a280_n278_bounded-strongly-corr_
-    (
-        "./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_01_01.thop",
-        "./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_01_01.thop.sol",
-    ),
-    (
-        "./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_05_01.thop",
-        "./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_05_01.thop.sol",
-    ),
-    (
-        "./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_10_01.thop",
-        "./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_10_01.thop.sol",
-    ),
-    // a280 misc
-    (
-        "./input-b/instances/a280-thop/a280_n2780_bounded-strongly-corr_10_03.thop",
-        "./input-b/solutions/a280-thop/a280_n2780_bounded-strongly-corr_10_03.thop.sol",
-    ),
-    (
-        "./input-b/instances/a280-thop/a280_n2780_uncorr_10_03.thop",
-        "./input-b/solutions/a280-thop/a280_n2780_uncorr_10_03.thop.sol",
-    ),
-    (
-        "./input-b/instances/a280-thop/a280_n2780_uncorr-similar-weights_10_03.thop",
-        "./input-b/solutions/a280-thop/a280_n2780_uncorr-similar-weights_10_03.thop.sol",
-    ),
-    // dsj1000
-    (
-        "./input-b/instances/dsj1000-thop/dsj1000_n998_bounded-strongly-corr_01_01.thop",
-        "./input-b/solutions/dsj1000-thop/dsj1000_n998_bounded-strongly-corr_01_01.thop.sol",
-    ),
-    (
-        "./input-b/instances/dsj1000-thop/dsj1000_n998_uncorr_01_01.thop",
-        "./input-b/solutions/dsj1000-thop/dsj1000_n998_uncorr_01_01.thop.sol",
-    ),
-    (
-        "./input-b/instances/dsj1000-thop/dsj1000_n998_uncorr-similar-weights_01_01.thop",
-        "./input-b/solutions/dsj1000-thop/dsj1000_n998_uncorr-similar-weights_01_01.thop.sol",
-    ),
-    // dsj1000
-    (
-        "./input-b/instances/dsj1000-thop/dsj1000_n4990_uncorr_01_03.thop",
-        "./input-b/solutions/dsj1000-thop/dsj1000_n4990_uncorr_01_03.thop.sol",
-    ),
-    (
-        "./input-b/instances/dsj1000-thop/dsj1000_n4990_uncorr_05_03.thop",
-        "./input-b/solutions/dsj1000-thop/dsj1000_n4990_uncorr_05_03.thop.sol",
-    ),
-    (
-        "./input-b/instances/dsj1000-thop/dsj1000_n4990_uncorr_10_03.thop",
-        "./input-b/solutions/dsj1000-thop/dsj1000_n4990_uncorr_10_03.thop.sol",
-    ),
-];
-
 pub fn print_results_part_0() {
-    for (i, s) in INSTANCES.iter() {
+    for (i, s) in inputs::INSTANCES_P0.iter() {
         let mut f = File::open(i).expect("file not found");
         let mut contents = String::new();
         f.read_to_string(&mut contents)
@@ -177,7 +33,7 @@ pub fn print_results_part_0() {
 }
 
 pub fn print_results_part_1() {
-    for (i, _s) in INSTANCES.iter() {
+    for (i, _s) in inputs::INSTANCES_P0.iter() {
         let mut f = File::open(i).expect("file not found");
         let mut contents = String::new();
         f.read_to_string(&mut contents)

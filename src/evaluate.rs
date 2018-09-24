@@ -73,7 +73,7 @@ impl<'a> Evaluator<'a> {
 
         let distance = self.instance.get_distance(last_city, next_city);
         // println!("distance {}", distance);
-        let speed: f64 = self.instance.get_max_speed() - ((self.weight as f64) * self.spw);
+        let speed: f64 = self.instance.get_max_speed() - (self.weight as f64) * self.spw;
         // println!("speed {}", speed);
 
         if speed < 0.0 {
