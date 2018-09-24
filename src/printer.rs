@@ -33,7 +33,61 @@ pub fn print_results_part_0() {
 }
 
 pub fn print_results_part_1() {
-    for (i, _s) in inputs::INSTANCES_P0.iter() {
+    let mut results: Vec<evaluate::CalcResult> = vec![];
+
+    let itens: Vec<String> = {
+        let eli51_base = "./input-b/instances/eil51-thop/";
+        let mut f = File::open("./src/inputs/p1/eli51.txt").expect("file not found");
+        let mut contents = String::new();
+        f.read_to_string(&mut contents)
+            .expect("something went wrong reading the file");
+        let mut eli51: Vec<String> = contents
+            .lines()
+            .map(|line| eli51_base.to_owned() + line)
+            .into_iter()
+            .collect();
+
+        let pr107_base = "./input-b/instances/pr107-thop/";
+        let mut f = File::open("./src/inputs/p1/pr107.txt").expect("file not found");
+        let mut contents = String::new();
+        f.read_to_string(&mut contents)
+            .expect("something went wrong reading the file");
+        let mut pr107: Vec<String> = contents
+            .lines()
+            .map(|line| pr107_base.to_owned() + line)
+            .into_iter()
+            .collect();
+
+        let a280_base = "./input-b/instances/a280-thop/";
+        let mut f = File::open("./src/inputs/p1/a280.txt").expect("file not found");
+        let mut contents = String::new();
+        f.read_to_string(&mut contents)
+            .expect("something went wrong reading the file");
+        let mut a280: Vec<String> = contents
+            .lines()
+            .map(|line| a280_base.to_owned() + line)
+            .into_iter()
+            .collect();
+
+        let dsj1000_base = "./input-b/instances/dsj1000-thop/";
+        let mut f = File::open("./src/inputs/p1/dsj1000.txt").expect("file not found");
+        let mut contents = String::new();
+        f.read_to_string(&mut contents)
+            .expect("something went wrong reading the file");
+        let mut dsj1000: Vec<String> = contents
+            .lines()
+            .map(|line| dsj1000_base.to_owned() + line)
+            .into_iter()
+            .collect();
+
+        eli51.append(&mut pr107);
+        eli51.append(&mut a280);
+        eli51.append(&mut dsj1000);
+        eli51
+        // .concat(pr107.into_iter().collect())
+    };
+
+    for i in itens {
         let mut f = File::open(i).expect("file not found");
         let mut contents = String::new();
         f.read_to_string(&mut contents)
@@ -46,10 +100,21 @@ pub fn print_results_part_1() {
 
         let result = evaluate::Evaluator::new(&instance)._calc(&hash, &route);
 
-        println!("Evaluating {}", i);
-        println!("Profit: {}", result.profit);
-        println!("Time: {}", result.time);
-        println!("Okay: {}", result.okay);
-        println!("");
+        // println!("Evaluating {}", i);
+        // println!("Profit: {}", result.profit);
+        // println!("Time: {}", result.time);
+        // println!("Okay: {}", result.okay);
+        // println!("");
+        results.push(result);
+    }
+
+    println!("printing profit");
+    for result in results.iter() {
+        println!("{}", result.profit)
+    }
+    println!("");
+    println!("printing time");
+    for result in results.iter() {
+        println!("{}", result.time)
     }
 }
