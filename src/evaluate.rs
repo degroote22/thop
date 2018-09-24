@@ -23,12 +23,23 @@ pub struct CalcResult {
 }
 
 impl<'a> Evaluator<'a> {
+    pub fn unvisit_city(&mut self, city: &u32, asked_items_hash: &HashMap<u32, bool>) {
+        // add weight and profit and caught
+        let (w, p, c) = self.instance.visit_city(*city, &asked_items_hash);
+        self.weight -= w;
+        self.profit -= p;
+        self.caught_items -= c;
+    }
     pub fn visit_city(&mut self, city: &u32, asked_items_hash: &HashMap<u32, bool>) {
         // add weight and profit and caught
         let (w, p, c) = self.instance.visit_city(*city, &asked_items_hash);
         self.weight += w;
         self.profit += p;
         self.caught_items += c;
+    }
+
+    pub fn set_asked_items(&mut self, asked: u32) {
+        self.asked_items = asked;
     }
 
     pub fn check_okay_status(&mut self) -> bool {
@@ -48,7 +59,6 @@ impl<'a> Evaluator<'a> {
                 "get_capacity_of_knapsack {}",
                 self.instance.get_capacity_of_knapsack()
             );
-            println!("");
         }
 
         self.okay = okay;
@@ -76,9 +86,15 @@ impl<'a> Evaluator<'a> {
             asked_items_hash.insert(*asked, true);
         }
 
-        let mut route = solution.route.iter();
-        let mut last_city = route.next();
-        let mut next_city = route.next();
+        self._calc(&asked_items_hash, &solution.route)
+    }
+
+    pub fn _calc(&mut self, asked_items_hash: &HashMap<u32, bool>, route: &Vec<u32>) -> CalcResult {
+        self.asked_items = asked_items_hash.len() as u32;
+
+        let mut route_iterator = route.iter();
+        let mut last_city = route_iterator.next();
+        let mut next_city = route_iterator.next();
         while next_city.is_some() {
             // add weight and profit and caught
             self.visit_city(last_city.unwrap(), &asked_items_hash);
@@ -87,13 +103,11 @@ impl<'a> Evaluator<'a> {
 
             // itera de novo
             last_city = next_city;
-            next_city = route.next();
+            next_city = route_iterator.next();
         }
 
         // add weight and profit and caught
         self.visit_city(last_city.unwrap(), &asked_items_hash);
-
-        self.asked_items = solution.items.len() as u32;
 
         self.check_okay_status();
 

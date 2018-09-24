@@ -18,6 +18,34 @@ impl<'a> Instance<'a> {
         }
     }
 
+    pub fn closest_city(&self, city: &u32, black_list: &HashMap<u32, bool>) -> Option<(u32, u32)> {
+        self.instance
+            .node_coord_section
+            .iter()
+            .map(|to| (to, self.get_distance(city, &to.index)))
+            .fold(None as Option<(u32, u32)>, |prev, curr| match prev {
+                Some((_last_index, last_distance)) => {
+                    let (to, distance) = curr;
+
+                    if distance < last_distance && !black_list.contains_key(&to.index) {
+                        return Some((to.index, distance));
+                    }
+                    prev
+                }
+                None => {
+                    let (to, distance) = curr;
+                    if !black_list.contains_key(&to.index) {
+                        return Some((to.index, distance));
+                    }
+                    None
+                }
+            })
+    }
+
+    pub fn get_items_in_city(&self, city: &u32) -> Option<&Vec<&'a parser::ItemSection>> {
+        self.items_per_city.get(city)
+    }
+
     pub fn get_max_speed(&self) -> f64 {
         self.instance.max_speed.unwrap()
     }

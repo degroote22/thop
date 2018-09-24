@@ -148,3 +148,18 @@ Profit: 47644
 Time: 71020637.10272017
 Okay: true
 
+Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n4990_uncorr_01_03.thop ./input-b/solutions/dsj1000-thop/dsj1000_n4990_uncorr_01_03.thop.sol
+Profit: 95527
+Time: 26844802.833558805
+Okay: true
+
+Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n4990_uncorr_05_03.thop ./input-b/solutions/dsj1000-thop/dsj1000_n4990_uncorr_05_03.thop.sol
+Profit: 108301
+Time: 29192302.461112987
+Okay: true
+
+Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n4990_uncorr_10_03.thop ./input-b/solutions/dsj1000-thop/dsj1000_n4990_uncorr_10_03.thop.sol
+Profit: 123788
+Time: 29218514.307045165
+Okay: true
+
