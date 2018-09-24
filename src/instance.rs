@@ -4,7 +4,6 @@ use std::collections::HashMap;
 
 pub struct Instance<'a> {
     instance: &'a parser::THOPFile,
-    distance_matrix: Vec<Vec<u32>>,
     distance_vector: Vec<u32>,
     items_per_city: HashMap<u32, Vec<&'a parser::ItemSection>>,
 }
@@ -13,7 +12,6 @@ impl<'a> Instance<'a> {
         Instance {
             instance,
             distance_vector: makers::make_distance_vector(&instance.node_coord_section),
-            distance_matrix: makers::make_distance_matrix(&instance.node_coord_section),
             items_per_city: makers::make_items_per_city(&instance.items_section),
         }
     }
@@ -110,12 +108,7 @@ impl<'a> Instance<'a> {
     }
 
     pub fn get_distance(&self, a: &u32, b: &u32) -> u32 {
-        // so pro compilador nao reclamar
-        if true {
-            return self.get_distance_from_vector(a, b);
-        } else {
-            return self.get_distance_from_matrix(a, b);
-        }
+        return self.get_distance_from_vector(a, b);
     }
 
     pub fn get_distance_from_vector(&self, a: &u32, b: &u32) -> u32 {
@@ -147,35 +140,6 @@ impl<'a> Instance<'a> {
             .distance_vector
             .get(index)
             .expect("unable to get index")
-    }
-
-    pub fn get_distance_from_matrix(&self, a: &u32, b: &u32) -> u32 {
-        if a == b {
-            return 0;
-        };
-        // o menor valor é a linha
-        // menos um por causa do index
-        // --
-        // a coluna é o maior valor menos a linha
-        // menos um por causa do index
-        //      1    2   3   4
-        //      -    -   -   -
-        // 1         5   6   8
-        // 2             8   6
-        // 3                 5
-        // 4
-
-        let min = a.min(b);
-        let max = a.max(b);
-
-        let line = (*min - 1) as usize;
-        let row = (*max - min - 1) as usize;
-        *self
-            .distance_matrix
-            .get(line)
-            .expect("unable to get line")
-            .get(row)
-            .expect("unable to get row")
     }
 }
 
