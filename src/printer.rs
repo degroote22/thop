@@ -33,8 +33,6 @@ pub fn print_results_part_0() {
 }
 
 pub fn print_results_part_1() {
-    let mut results: Vec<evaluate::CalcResult> = vec![];
-
     let itens: Vec<String> = {
         let eli51_base = "./input-b/instances/eil51-thop/";
         let mut f = File::open("./src/inputs/p1/eli51.txt").expect("file not found");
@@ -84,8 +82,8 @@ pub fn print_results_part_1() {
         eli51.append(&mut a280);
         eli51.append(&mut dsj1000);
         eli51
-        // .concat(pr107.into_iter().collect())
     };
+    let mut results: Vec<evaluate::CalcResult> = vec![];
 
     for i in itens {
         let mut f = File::open(i).expect("file not found");
