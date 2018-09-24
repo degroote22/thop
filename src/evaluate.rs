@@ -69,15 +69,20 @@ impl<'a> Evaluator<'a> {
     pub fn walk_to_other_city(&mut self, last_city: &u32, next_city: &u32) {
         //walk
 
-        let distance = self.instance.get_distance(last_city, next_city);
+        // println!("walking... {}, {}, {}", self.time, last_city, next_city);
 
-        let speed: f64 = self.instance.get_max_speed() - (self.weight as f64) * self.spw;
+        let distance = self.instance.get_distance(last_city, next_city);
+        // println!("distance {}", distance);
+        let speed: f64 = self.instance.get_max_speed() - ((self.weight as f64) * self.spw);
+        // println!("speed {}", speed);
+
         if speed < 0.0 {
             self.time = f64::INFINITY;
             return;
         }
 
         self.time += (distance as f64) / speed;
+        // println!("walked... {}", self.time);
     }
 
     pub fn calc(&mut self, solution: &parser::SolutionFile) -> CalcResult {
