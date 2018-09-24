@@ -1,9 +1,17 @@
 use instance::Instance;
 use parser;
 use std::collections::HashMap;
+use std::f64;
 
 pub struct Evaluator<'a> {
     instance: &'a Instance<'a>,
+    weight: u32,
+    profit: u32,
+    time: f64,
+    caught_items: u32,
+    asked_items: u32,
+    spw: f64,
+    okay: bool,
 }
 
 #[derive(Debug)]
@@ -15,40 +23,67 @@ pub struct CalcResult {
 }
 
 impl<'a> Evaluator<'a> {
-    pub fn calc(&self, solution: &parser::SolutionFile) -> CalcResult {
-        let mut weight: u32 = 0;
-        let mut profit: u32 = 0;
-        let mut time: f64 = 0.0;
-        let mut caught_items = 0;
+    pub fn visit_city(&mut self, city: &u32, asked_items_hash: &HashMap<u32, bool>) {
+        // add weight and profit and caught
+        let (w, p, c) = self.instance.visit_city(*city, &asked_items_hash);
+        self.weight += w;
+        self.profit += p;
+        self.caught_items += c;
+    }
 
-        let spw = self.instance.speed_descresc_per_weight();
+    pub fn check_okay_status(&mut self) -> bool {
+        let okay = self.caught_items == self.asked_items
+            && self.time <= self.instance.get_max_time().into()
+            && self.weight <= self.instance.get_capacity_of_knapsack();
 
-        let mut route = solution.route.iter();
-        let mut last_city = route.next();
-        let mut next_city = route.next();
+        let _debug = false;
+        if okay == false && _debug {
+            println!("Not okay!");
+            println!("caught_items {}", self.caught_items);
+            println!("asked_items {}", self.asked_items);
+            println!("time {}", self.time);
+            println!("max_time {}", self.instance.get_max_time());
+            println!("weight {}", self.weight);
+            println!(
+                "get_capacity_of_knapsack {}",
+                self.instance.get_capacity_of_knapsack()
+            );
+            println!("");
+        }
 
+        self.okay = okay;
+
+        okay
+    }
+
+    pub fn walk_to_other_city(&mut self, last_city: &u32, next_city: &u32) {
+        //walk
+
+        let distance = self.instance.get_distance(last_city, next_city);
+
+        let speed: f64 = self.instance.get_max_speed() - (self.weight as f64) * self.spw;
+        if speed < 0.0 {
+            self.time = f64::INFINITY;
+            return;
+        }
+
+        self.time += (distance as f64) / speed;
+    }
+
+    pub fn calc(&mut self, solution: &parser::SolutionFile) -> CalcResult {
         let mut asked_items_hash: HashMap<u32, bool> = HashMap::new();
         for asked in solution.items.iter() {
             asked_items_hash.insert(*asked, true);
         }
 
+        let mut route = solution.route.iter();
+        let mut last_city = route.next();
+        let mut next_city = route.next();
         while next_city.is_some() {
             // add weight and profit and caught
-            let (w, p, c) = self
-                .instance
-                .visit_city(*last_city.unwrap(), &asked_items_hash);
-            weight += w;
-            profit += p;
-            caught_items += c;
+            self.visit_city(last_city.unwrap(), &asked_items_hash);
 
-            //walk
-            let distance = self
-                .instance
-                .get_distance(last_city.unwrap(), next_city.unwrap());
-
-            let speed: f64 = self.instance.get_max_speed() - (weight as f64) * spw;
-
-            time += (distance as f64) / speed;
+            self.walk_to_other_city(last_city.unwrap(), next_city.unwrap());
 
             // itera de novo
             last_city = next_city;
@@ -56,40 +91,85 @@ impl<'a> Evaluator<'a> {
         }
 
         // add weight and profit and caught
-        let (w, p, c) = self
-            .instance
-            .visit_city(*last_city.unwrap(), &asked_items_hash);
-        weight += w;
-        profit += p;
-        caught_items += c;
+        self.visit_city(last_city.unwrap(), &asked_items_hash);
 
-        let okay = (caught_items as usize) == solution.items.len()
-            && time <= self.instance.get_max_time().into()
-            && weight <= self.instance.get_capacity_of_knapsack();
+        self.asked_items = solution.items.len() as u32;
 
-        // if okay == false {
-        //     println!("Not okay!");
-        //     println!("caught_items {}", caught_items);
-        //     println!("asked_items {}", solution.items.len());
-        //     println!("time {}", time);
-        //     println!("max_time {}", self.instance.get_max_time());
-        //     println!("weight {}", weight);
-        //     println!(
-        //         "get_capacity_of_knapsack {}",
-        //         self.instance.get_capacity_of_knapsack()
-        //     );
-        //     println!("");
-        // }
+        self.check_okay_status();
 
         CalcResult {
-            time,
-            weight,
-            profit,
-            okay,
+            time: self.time,
+            weight: self.weight,
+            profit: self.profit,
+            okay: self.okay,
         }
     }
 
+    pub fn _reset(&mut self) {
+        self.weight = 0;
+        self.profit = 0;
+        self.time = 0.0;
+        self.asked_items = 0;
+        self.caught_items = 0;
+        self.okay = true;
+    }
+
     pub fn new(instance: &'a Instance) -> Evaluator<'a> {
-        Evaluator { instance: instance }
+        Evaluator {
+            instance: instance,
+            weight: 0,
+            profit: 0,
+            time: 0.0,
+            asked_items: 0,
+            caught_items: 0,
+            okay: true,
+            spw: instance.speed_descresc_per_weight(),
+        }
+    }
+}
+
+#[cfg(test)]
+mod test_full {
+
+    use std::fs::File;
+    use std::io::prelude::*;
+
+    use super::*;
+
+    #[test]
+    fn integration() {
+        let mut f = File::open("./input-a/instances/ex4-n5_1.thop").expect("file not found");
+
+        let mut contents = String::new();
+        f.read_to_string(&mut contents)
+            .expect("something went wrong reading the file");
+
+        let instance = parser::instance::parse(&contents);
+        let super_file = Instance::new(&instance);
+
+        let mut ev = Evaluator::new(&super_file);
+
+        let mut h1 = HashMap::new();
+        h1.insert(1, true);
+        h1.insert(2, true);
+
+        ev.visit_city(&2, &h1);
+        assert_eq!(ev.weight, 5);
+        assert_eq!(ev.profit, 50);
+        assert_eq!(ev.caught_items, 2);
+
+        ev._reset();
+
+        ev.walk_to_other_city(&1, &2);
+        assert_eq!(ev.time, 5.0);
+
+        ev._reset();
+
+        let mut h2 = HashMap::new();
+        h2.insert(1, true);
+
+        ev.visit_city(&2, &h2);
+        ev.walk_to_other_city(&1, &2);
+        assert_eq!(ev.time, 12.5);
     }
 }

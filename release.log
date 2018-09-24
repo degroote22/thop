@@ -1,0 +1,150 @@
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_a.thop.sol
+Profit: 60
+Time: 20
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_b.thop.sol
+Profit: 60
+Time: 11.428571428571429
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_c.thop.sol
+Profit: 100
+Time: 0
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_d.thop.sol
+Profit: 80
+Time: 0
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_e.thop.sol
+Profit: 40
+Time: 0
+Okay: false
+
+Evaluating ./input-a/instances/ex4-n5_1.thop ./input-a/solutions/ex4-n5_f.thop.sol
+Profit: 60
+Time: 74.99999999999996
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_2.thop ./input-a/solutions/ex4-n5_a.thop.sol
+Profit: 60
+Time: 20
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_2.thop ./input-a/solutions/ex4-n5_d.thop.sol
+Profit: 80
+Time: 0
+Okay: true
+
+Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_a.thop.sol
+Profit: 60
+Time: 80.00000000000001
+Okay: false
+
+Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_b.thop.sol
+Profit: 60
+Time: 14.545454545454545
+Okay: false
+
+Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_c.thop.sol
+Profit: 100
+Time: 0
+Okay: false
+
+Evaluating ./input-a/instances/ex4-n5_3.thop ./input-a/solutions/ex4-n5_d.thop.sol
+Profit: 80
+Time: 0
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_01.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_01.thop.sol
+Profit: 14851
+Time: 140.306281710235
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_02.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_02.thop.sol
+Profit: 14280
+Time: 265.4345137046565
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_03.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_01_03.thop.sol
+Profit: 15311
+Time: 321.2145958671284
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_01.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_01.thop.sol
+Profit: 31614
+Time: 268.8681458661183
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_02.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_02.thop.sol
+Profit: 42400
+Time: 389.3110434832103
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_03.thop ./input-b/solutions/eil51-thop/eil51_n147_bounded-strongly-corr_05_03.thop.sol
+Profit: 43946
+Time: 523.4605519317539
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_01.thop ./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_01.thop.sol
+Profit: 50511
+Time: 313.87421364432305
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_02.thop ./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_02.thop.sol
+Profit: 61164
+Time: 476.75500022643575
+Okay: true
+
+Evaluating ./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_03.thop ./input-b/solutions/eil51-thop/eil51_n490_uncorr-similar-weights_05_03.thop.sol
+Profit: 75055
+Time: 643.5056341600946
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_01_01.thop ./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_01_01.thop.sol
+Profit: 18719
+Time: 1207.0458801672462
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_05_01.thop ./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_05_01.thop.sol
+Profit: 30565
+Time: 1694.0804735844563
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_10_01.thop ./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_10_01.thop.sol
+Profit: 39925
+Time: 1824.8020748715167
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n2780_bounded-strongly-corr_10_03.thop ./input-b/solutions/a280-thop/a280_n2780_bounded-strongly-corr_10_03.thop.sol
+Profit: 296210
+Time: 3923.642338790257
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n2780_uncorr_10_03.thop ./input-b/solutions/a280-thop/a280_n2780_uncorr_10_03.thop.sol
+Profit: 140163
+Time: 3912.478920866733
+Okay: true
+
+Evaluating ./input-b/instances/a280-thop/a280_n2780_uncorr-similar-weights_10_03.thop ./input-b/solutions/a280-thop/a280_n2780_uncorr-similar-weights_10_03.thop.sol
+Profit: 150116
+Time: 4070.1198009735754
+Okay: true
+
+Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n998_bounded-strongly-corr_01_01.thop ./input-b/solutions/dsj1000-thop/dsj1000_n998_bounded-strongly-corr_01_01.thop.sol
+Profit: 109925
+Time: 170654579.34297428
+Okay: true
+
+Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n998_uncorr_01_01.thop ./input-b/solutions/dsj1000-thop/dsj1000_n998_uncorr_01_01.thop.sol
+Profit: 56585
+Time: 155106808.35127607
+Okay: true
+
+Evaluating ./input-b/instances/dsj1000-thop/dsj1000_n998_uncorr-similar-weights_01_01.thop ./input-b/solutions/dsj1000-thop/dsj1000_n998_uncorr-similar-weights_01_01.thop.sol
+Profit: 47644
+Time: 71020637.10272017
+Okay: true
+

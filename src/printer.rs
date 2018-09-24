@@ -157,6 +157,7 @@ pub fn print_results_part_0() {
         println!("Evaluating {} {}", i, s);
         println!("Profit: {}", result.profit);
         println!("Time: {}", result.time);
+        println!("Okay: {}", result.okay);
         println!("");
     }
 }

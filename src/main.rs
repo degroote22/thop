@@ -10,7 +10,7 @@ mod utils;
 
 fn main() {
     // só pro compilador não falar que tem coisa não sendo usada
-    if false {
+    if true {
         printer::print_results_part_0();
     }
 }

@@ -5,12 +5,14 @@ use std::collections::HashMap;
 pub struct Instance<'a> {
     instance: &'a parser::THOPFile,
     distance_matrix: Vec<Vec<u32>>,
+    distance_vector: Vec<u32>,
     items_per_city: HashMap<u32, Vec<&'a parser::ItemSection>>,
 }
 impl<'a> Instance<'a> {
     pub fn new(instance: &'a parser::THOPFile) -> Instance {
         Instance {
             instance,
+            distance_vector: makers::make_distance_vector(&instance.node_coord_section),
             distance_matrix: makers::make_distance_matrix(&instance.node_coord_section),
             items_per_city: makers::make_items_per_city(&instance.items_section),
         }
@@ -54,6 +56,46 @@ impl<'a> Instance<'a> {
     }
 
     pub fn get_distance(&self, a: &u32, b: &u32) -> u32 {
+        // so pro compilador nao reclamar
+        if true {
+            return self.get_distance_from_vector(a, b);
+        } else {
+            return self.get_distance_from_matrix(a, b);
+        }
+    }
+
+    pub fn get_distance_from_vector(&self, a: &u32, b: &u32) -> u32 {
+        if a == b {
+            return 0;
+        };
+
+        // TODO: documentar
+        let min = a.min(b);
+        let max = a.max(b);
+
+        let gap = {
+            let dim = self.instance.dimension.unwrap();
+
+            let line = *min;
+            let start = dim - line + 1;
+
+            let mut sum = 0;
+            for x in start..dim {
+                sum += x;
+            }
+            sum
+        };
+
+        let row = (*max - min - 1) as usize;
+
+        let index = (gap as usize) + row;
+        *self
+            .distance_vector
+            .get(index)
+            .expect("unable to get index")
+    }
+
+    pub fn get_distance_from_matrix(&self, a: &u32, b: &u32) -> u32 {
         if a == b {
             return 0;
         };
