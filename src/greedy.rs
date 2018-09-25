@@ -2,6 +2,68 @@ use evaluate;
 use instance;
 use std::collections::HashMap;
 
+pub fn closest_city(
+    instance: &instance::Instance,
+    city: &u32,
+    black_list: &HashMap<u32, bool>,
+) -> Option<(u32, u32)> {
+    // let mut children = vec![];
+    let cities = instance.get_cities();
+    let len = cities.len();
+    const N_THREADS: usize = 16;
+    let size = len / N_THREADS;
+    let split = cities.chunks(size);
+    let mut results = vec![];
+    // tá repartindo em slices pra depois implementar isso multi-thread
+
+    for slice in split {
+        let result = slice
+            .iter()
+            .map(|to| (to, instance.get_distance(city, &to.index)))
+            .fold(None as Option<(u32, u32)>, |prev, curr| match prev {
+                Some((_last_index, last_distance)) => {
+                    let (to, distance) = curr;
+
+                    let has_items = {
+                        match instance.get_items_in_city(&to.index) {
+                            Some(_items) => true,
+                            None => false,
+                        }
+                    };
+                    if distance < last_distance && !black_list.contains_key(&to.index) && has_items
+                    {
+                        return Some((to.index, distance));
+                    }
+                    prev
+                }
+                None => {
+                    let (to, distance) = curr;
+                    if !black_list.contains_key(&to.index) {
+                        return Some((to.index, distance));
+                    }
+                    None
+                }
+            });
+
+        results.push(result);
+    }
+
+    results
+        .iter()
+        .fold(None as Option<(u32, u32)>, |prev, curr| match prev {
+            Some(old) => {
+                if curr.is_some() && old.1 > curr.unwrap().1 {
+                    // se a distance antiga eh maior do que a que tamo vendo, manda a nova
+                    return *curr;
+                } else {
+                    // o que tava salvo é o melhor, manda ele
+                    return prev;
+                }
+            }
+            None => *curr,
+        })
+}
+
 pub fn greedy(instance: &instance::Instance) -> (Vec<u32>, HashMap<u32, bool>) {
     // iniciar na cidade 1
     let mut city: u32 = 1;
@@ -38,7 +100,7 @@ pub fn greedy(instance: &instance::Instance) -> (Vec<u32>, HashMap<u32, bool>) {
         }
 
         // ir para a cidade mais próxima
-        let closest = instance.closest_city(&city, &black_list);
+        let closest = closest_city(&instance, &city, &black_list);
 
         if closest.is_none() {
             // println!("Nao há cidade para ir");
@@ -90,7 +152,7 @@ pub fn greedy(instance: &instance::Instance) -> (Vec<u32>, HashMap<u32, bool>) {
         };
     }
 
-    // confere se o ultimo eh do tamanho certo
+    // confere se o ultimo eh o ultimo msm (tamanho da dimensao)
     loop {
         if *route.get(route.len() - 1).unwrap() == instance.get_dimension() {
             break;

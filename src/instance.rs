@@ -16,54 +16,8 @@ impl<'a> Instance<'a> {
         }
     }
 
-    pub fn closest_city(&self, city: &u32, black_list: &HashMap<u32, bool>) -> Option<(u32, u32)> {
-        // let mut children = vec![];
-        let len = self.instance.node_coord_section.len();
-        const N_THREADS: usize = 16;
-        let size = len / N_THREADS;
-        let split = self.instance.node_coord_section.chunks(size);
-        let mut results = vec![];
-        // tá repartindo em slices pra depois implementar isso multi-thread
-
-        for slice in split {
-            let result = slice
-                .iter()
-                .map(|to| (to, self.get_distance(city, &to.index)))
-                .fold(None as Option<(u32, u32)>, |prev, curr| match prev {
-                    Some((_last_index, last_distance)) => {
-                        let (to, distance) = curr;
-
-                        if distance < last_distance && !black_list.contains_key(&to.index) {
-                            return Some((to.index, distance));
-                        }
-                        prev
-                    }
-                    None => {
-                        let (to, distance) = curr;
-                        if !black_list.contains_key(&to.index) {
-                            return Some((to.index, distance));
-                        }
-                        None
-                    }
-                });
-
-            results.push(result);
-        }
-
-        results
-            .iter()
-            .fold(None as Option<(u32, u32)>, |prev, curr| match prev {
-                Some(old) => {
-                    if curr.is_some() && old.1 > curr.unwrap().1 {
-                        // se a distance antiga eh maior do que a que tamo vendo, manda a nova
-                        return *curr;
-                    } else {
-                        // o que tava salvo é o melhor, manda ele
-                        return prev;
-                    }
-                }
-                None => *curr,
-            })
+    pub fn get_cities(&self) -> &Vec<parser::NodeCoordSection> {
+        &self.instance.node_coord_section
     }
 
     pub fn get_items_in_city(&self, city: &u32) -> Option<&Vec<&'a parser::ItemSection>> {
