@@ -5,6 +5,7 @@ use std::f64;
 
 pub struct Evaluator<'a> {
     instance: &'a Instance<'a>,
+    visited_cities: HashMap<u32, bool>,
     weight: u32,
     profit: u32,
     time: f64,
@@ -25,17 +26,23 @@ pub struct CalcResult {
 impl<'a> Evaluator<'a> {
     pub fn unvisit_city(&mut self, city: &u32, asked_items_hash: &HashMap<u32, bool>) {
         // add weight and profit and caught
-        let (w, p, c) = self.instance.visit_city(*city, &asked_items_hash);
-        self.weight -= w;
-        self.profit -= p;
-        self.caught_items -= c;
+        if self.visited_cities.contains_key(city) {
+            self.visited_cities.remove(city);
+            let (w, p, c) = self.instance.get_items(*city, &asked_items_hash);
+            self.weight -= w;
+            self.profit -= p;
+            self.caught_items -= c;
+        }
     }
     pub fn visit_city(&mut self, city: &u32, asked_items_hash: &HashMap<u32, bool>) {
-        // add weight and profit and caught
-        let (w, p, c) = self.instance.visit_city(*city, &asked_items_hash);
-        self.weight += w;
-        self.profit += p;
-        self.caught_items += c;
+        if !self.visited_cities.contains_key(city) {
+            self.visited_cities.insert(*city, true);
+            // add weight and profit and caught
+            let (w, p, c) = self.instance.get_items(*city, &asked_items_hash);
+            self.weight += w;
+            self.profit += p;
+            self.caught_items += c;
+        }
     }
 
     pub fn set_asked_items(&mut self, asked: u32) {
@@ -91,7 +98,16 @@ impl<'a> Evaluator<'a> {
             asked_items_hash.insert(*asked, true);
         }
 
-        self._calc(&asked_items_hash, &solution.route)
+        let mut corrected_route = solution.route.clone();
+        if *corrected_route.get(0).unwrap() != 1 {
+            corrected_route.insert(0, 1);
+        }
+        let last = *corrected_route.get(corrected_route.len() - 1).unwrap();
+        if last != self.instance.get_dimension() {
+            corrected_route.push(self.instance.get_dimension());
+        }
+
+        self._calc(&asked_items_hash, &corrected_route)
     }
 
     pub fn _calc(&mut self, asked_items_hash: &HashMap<u32, bool>, route: &Vec<u32>) -> CalcResult {
@@ -130,6 +146,7 @@ impl<'a> Evaluator<'a> {
         self.time = 0.0;
         self.asked_items = 0;
         self.caught_items = 0;
+        self.visited_cities = HashMap::new();
         self.okay = true;
     }
 
@@ -142,6 +159,7 @@ impl<'a> Evaluator<'a> {
             asked_items: 0,
             caught_items: 0,
             okay: true,
+            visited_cities: HashMap::new(),
             spw: instance.speed_descresc_per_weight(),
         }
     }
@@ -190,5 +208,40 @@ mod test_full {
         ev.visit_city(&2, &h2);
         ev.walk_to_other_city(&1, &2);
         assert_eq!(ev.time, 12.5);
+    }
+
+    #[test]
+    fn snapshot() {
+        let mut f =
+            File::open("./input-b/instances/a280-thop/a280_n278_bounded-strongly-corr_01_01.thop")
+                .expect("file not found");
+
+        let mut contents = String::new();
+        f.read_to_string(&mut contents)
+            .expect("something went wrong reading the file");
+
+        let instance = parser::instance::parse(&contents);
+        // println!("instance {:?}", instance);
+        let super_file = Instance::new(&instance);
+        // println!("file {:?}", super_file);
+
+        let mut f = File::open(
+            "./input-b/solutions/a280-thop/a280_n278_bounded-strongly-corr_01_01.thop.sol",
+        ).expect("file not found");
+
+        let mut contents = String::new();
+        f.read_to_string(&mut contents)
+            .expect("something went wrong reading the file");
+
+        let solution = parser::solution::parse(&contents);
+        // println!("sol {:?}", solution);
+
+        let mut ev = Evaluator::new(&super_file);
+        // println!("Ev {:?}", ev);
+
+        let result = ev.calc(&solution);
+        assert_eq!(result.profit, 18719);
+        assert_eq!(result.weight, 15819);
+        assert!((result.time - 1285.22).abs() < 0.1);
     }
 }

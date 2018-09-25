@@ -90,5 +90,30 @@ pub fn greedy(instance: &instance::Instance) -> (Vec<u32>, HashMap<u32, bool>) {
         };
     }
 
+    // confere se o ultimo eh do tamanho certo
+    loop {
+        if *route.get(route.len() - 1).unwrap() == instance.get_dimension() {
+            break;
+        }
+        route.push(instance.get_dimension());
+        // resetando aqui porque pode ser que la embaixo apagou
+        // item da rota
+        ev._reset();
+        let res = ev._calc(&asked_items_hash, &route);
+        if res.okay {
+            break;
+        } else {
+            route.pop(); // remove o ultimo, ctz q n tinha nada nele
+            let x = route.pop();
+            let c = x.unwrap();
+            let items = instance.get_items_in_city(&c).unwrap();
+            for i in items {
+                if asked_items_hash.contains_key(&i.index) {
+                    asked_items_hash.remove(&i.index);
+                }
+            }
+        }
+    }
+
     (route, asked_items_hash)
 }

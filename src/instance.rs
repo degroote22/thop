@@ -74,7 +74,11 @@ impl<'a> Instance<'a> {
         self.instance.max_speed.unwrap()
     }
 
-    pub fn visit_city(&self, city: u32, asked_items_hash: &HashMap<u32, bool>) -> (u32, u32, u32) {
+    pub fn get_dimension(&self) -> u32 {
+        self.instance.dimension.unwrap()
+    }
+
+    pub fn get_items(&self, city: u32, asked_items_hash: &HashMap<u32, bool>) -> (u32, u32, u32) {
         // (u32: weight, u32: profit, u32: n items catched)
         let mut weight = 0;
         let mut profit = 0;
@@ -184,8 +188,8 @@ mod test_full {
         h2.insert(3, true);
         h2.insert(4, true);
         h2.insert(5, true);
-        assert_eq!(super_file.visit_city(2, &h1), (5, 50, 2));
-        assert_eq!(super_file.visit_city(3, &h2), (5, 180, 3));
+        assert_eq!(super_file.get_items(2, &h1), (5, 50, 2));
+        assert_eq!(super_file.get_items(3, &h2), (5, 180, 3));
 
         assert_eq!(super_file.speed_descresc_per_weight(), 0.3);
     }
