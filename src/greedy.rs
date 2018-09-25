@@ -9,58 +9,32 @@ pub fn closest_city(
 ) -> Option<(u32, u32)> {
     // let mut children = vec![];
     let cities = instance.get_cities();
-    let len = cities.len();
-    const N_THREADS: usize = 16;
-    let size = len / N_THREADS;
-    let split = cities.chunks(size);
-    let mut results = vec![];
     // tá repartindo em slices pra depois implementar isso multi-thread
-
-    for slice in split {
-        let result = slice
-            .iter()
-            .map(|to| (to, instance.get_distance(city, &to.index)))
-            .fold(None as Option<(u32, u32)>, |prev, curr| match prev {
-                Some((_last_index, last_distance)) => {
-                    let (to, distance) = curr;
-
-                    let has_items = {
-                        match instance.get_items_in_city(&to.index) {
-                            Some(_items) => true,
-                            None => false,
-                        }
-                    };
-                    if distance < last_distance && !black_list.contains_key(&to.index) && has_items
-                    {
-                        return Some((to.index, distance));
-                    }
-                    prev
-                }
-                None => {
-                    let (to, distance) = curr;
-                    if !black_list.contains_key(&to.index) {
-                        return Some((to.index, distance));
-                    }
-                    None
-                }
-            });
-
-        results.push(result);
-    }
-
-    results
+    cities
         .iter()
+        .map(|to| (to, instance.get_distance(city, &to.index)))
         .fold(None as Option<(u32, u32)>, |prev, curr| match prev {
-            Some(old) => {
-                if curr.is_some() && old.1 > curr.unwrap().1 {
-                    // se a distance antiga eh maior do que a que tamo vendo, manda a nova
-                    return *curr;
-                } else {
-                    // o que tava salvo é o melhor, manda ele
-                    return prev;
+            Some((_last_index, last_distance)) => {
+                let (to, distance) = curr;
+
+                let has_items = {
+                    match instance.get_items_in_city(&to.index) {
+                        Some(_items) => true,
+                        None => false,
+                    }
+                };
+                if distance < last_distance && !black_list.contains_key(&to.index) && has_items {
+                    return Some((to.index, distance));
                 }
+                prev
             }
-            None => *curr,
+            None => {
+                let (to, distance) = curr;
+                if !black_list.contains_key(&to.index) {
+                    return Some((to.index, distance));
+                }
+                None
+            }
         })
 }
 
