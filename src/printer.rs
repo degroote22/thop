@@ -103,6 +103,9 @@ pub fn print_results_part_1() {
         // println!("Time: {}", result.time);
         // println!("Okay: {}", result.okay);
         // println!("");
+        if !result.okay {
+            panic!("Retornando rota inválida");
+        }
         results.push(result);
     }
 
