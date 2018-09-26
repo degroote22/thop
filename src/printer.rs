@@ -3,9 +3,33 @@ use greedy;
 use inputs;
 use instance;
 use parser;
+use serde_json;
 use std::fs::File;
 use std::io::prelude::*;
+use std::time::Instant;
 
+#[derive(Debug, Serialize, Deserialize)]
+struct PartOneResult {
+    time: f64,
+    weight: u32,
+    profit: u32,
+    okay: bool,
+    name: String,
+    index: u32,
+    execution_time_sub: u32,
+    execution_time: u64,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct ResultsPartOne {
+    r: Vec<PartOneResult>,
+}
+
+impl ResultsPartOne {
+    pub fn json(&self) -> String {
+        serde_json::to_string(&self).unwrap()
+    }
+}
 pub fn print_results_part_0() {
     for (i, s) in inputs::INSTANCES_P0.iter() {
         let mut f = File::open(i).expect("file not found");
@@ -83,9 +107,11 @@ pub fn print_results_part_1() {
         eli51.append(&mut dsj1000);
         eli51
     };
-    let mut results: Vec<evaluate::CalcResult> = vec![];
+    let mut results: Vec<PartOneResult> = vec![];
 
-    for i in itens {
+    for (index, i) in itens.iter().enumerate() {
+        let now = Instant::now();
+
         let mut f = File::open(i).expect("file not found");
         let mut contents = String::new();
         f.read_to_string(&mut contents)
@@ -106,16 +132,33 @@ pub fn print_results_part_1() {
         if !result.okay {
             panic!("Retornando rota inválida");
         }
-        results.push(result);
+        let new_now = Instant::now();
+
+        let r = PartOneResult {
+            name: i.to_string(),
+            okay: result.okay,
+            time: result.time,
+            weight: result.weight,
+            profit: result.profit,
+            index: index as u32,
+            execution_time_sub: new_now.duration_since(now).subsec_nanos(),
+            execution_time: new_now.duration_since(now).as_secs(),
+        };
+
+        results.push(r);
     }
 
-    println!("printing profit");
-    for result in results.iter() {
-        println!("{}", result.profit)
-    }
-    println!("");
-    println!("printing time");
-    for result in results.iter() {
-        println!("{}", result.time)
-    }
+    // println!("printing profit");
+    // for result in results.iter() {
+    //     println!("{}", result.profit)
+    // }
+    // println!("");
+    // println!("printing time");
+    // for result in results.iter() {
+    //     println!("{}", result.time)
+    // }
+
+    let json = ResultsPartOne { r: results };
+
+    println!("{}", json.json());
 }

@@ -1,7 +1,30 @@
 use evaluate;
 use instance;
+use rand::prelude::*;
 use std::collections::HashMap;
 
+pub fn random_city(
+    instance: &instance::Instance,
+    city: &u32,
+    black_list: &HashMap<u32, bool>,
+) -> Option<(u32, u32)> {
+    // let mut children = vec![];
+    let cities = instance.get_cities();
+    let mut rng = thread_rng();
+
+    loop {
+        let x = rng.gen_range(2, instance.get_dimension());
+        let random_city = cities.get(x as usize);
+        match random_city {
+            Some(c) => {
+                if (c.index != *city) && !black_list.contains_key(&c.index) {
+                    return Some((c.index, 0));
+                }
+            }
+            None => {}
+        }
+    }
+}
 pub fn closest_city(
     instance: &instance::Instance,
     city: &u32,
@@ -74,7 +97,13 @@ pub fn greedy(instance: &instance::Instance) -> (Vec<u32>, HashMap<u32, bool>) {
         }
 
         // ir para a cidade mais próxima
-        let closest = closest_city(&instance, &city, &black_list);
+        let closest = {
+            if true {
+                closest_city(&instance, &city, &black_list)
+            } else {
+                random_city(&instance, &city, &black_list)
+            }
+        };
 
         if closest.is_none() {
             // println!("Nao há cidade para ir");

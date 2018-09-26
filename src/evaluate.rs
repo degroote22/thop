@@ -15,7 +15,6 @@ pub struct Evaluator<'a> {
     okay: bool,
 }
 
-#[derive(Debug)]
 pub struct CalcResult {
     pub time: f64,
     pub weight: u32,
