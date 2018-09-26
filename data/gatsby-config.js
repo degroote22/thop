@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: `thop`,
   siteMetadata: {
     siteName: `Using Typescript Example`
   },
