@@ -15,6 +15,7 @@ pub struct Evaluator<'a> {
     okay: bool,
 }
 
+#[derive(Debug)]
 pub struct CalcResult {
     pub time: f64,
     pub weight: u32,
@@ -23,6 +24,24 @@ pub struct CalcResult {
 }
 
 impl<'a> Evaluator<'a> {
+    pub fn can_get_item(&self, city: &u32, item: &u32) -> bool {
+        // olha o peso do item
+        let (weight, _profit) = self.instance.get_item(*city, *item);
+
+        // olha se com esse peso passa da capacidade
+        self.weight + weight <= self.instance.get_capacity_of_knapsack()
+    }
+
+    // pub fn get_item(&mut self, city: &u32, item: &u32) {
+    //     let (weight, profit) = self.instance.get_item(*city, *item);
+    //     self.weight += weight;
+    //     self.profit += profit;
+    // }
+
+    // pub fn current_profit(&self) -> u32 {
+    //     self.profit
+    // }
+
     pub fn unvisit_city(&mut self, city: &u32, asked_items_hash: &HashMap<u32, bool>) {
         // add weight and profit and caught
         if self.visited_cities.contains_key(city) {
@@ -111,6 +130,9 @@ impl<'a> Evaluator<'a> {
 
     pub fn _calc(&mut self, asked_items_hash: &HashMap<u32, bool>, route: &Vec<u32>) -> CalcResult {
         self.asked_items = asked_items_hash.len() as u32;
+
+        assert!(route[0] == 1);
+        assert!(route[route.len() - 1] == self.instance.get_dimension());
 
         let mut route_iterator = route.iter();
         let mut last_city = route_iterator.next();

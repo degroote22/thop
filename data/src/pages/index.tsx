@@ -1,6 +1,7 @@
 import { graphql } from "gatsby";
 import * as React from "react";
 import ReactTable from "react-table";
+// tslint:disable-next-line:no-submodule-imports
 import "react-table/react-table.css";
 
 // Please note that you can use https://github.com/dotansimha/graphql-code-generator
@@ -12,10 +13,11 @@ interface IResult {
   index: number;
   name: string;
 }
+// tslint:disable-next-line:no-empty-interface
 interface IResultSummed extends IResult {
-  greedy: number;
-  random: number;
-  g3: number;
+  // greedy: number;
+  // random: number;
+  // g3: number;
 }
 interface IndexPageProps {
   data: {
@@ -24,47 +26,31 @@ interface IndexPageProps {
         siteName: string;
       };
     };
-    greedyJson: {
-      r: IResult[];
-    };
-    greedy3Json: {
-      r: IResult[];
-    };
-    randomJson: {
-      r: IResult[];
+    allRawJson: {
+      edges: Array<{
+        node: {
+          name: string;
+          r: IResult[];
+        };
+      }>;
     };
   };
 }
 
 export const pageQuery = graphql`
   query IndexQuery {
-    greedyJson {
-      r {
-        time
-        weight
-        profit
-        name
-        index
-      }
-    }
-
-    greedy3Json {
-      r {
-        time
-        weight
-        profit
-        name
-        index
-      }
-    }
-
-    randomJson {
-      r {
-        time
-        weight
-        profit
-        name
-        index
+    allRawJson {
+      edges {
+        node {
+          name
+          r {
+            time
+            weight
+            profit
+            name
+            index
+          }
+        }
       }
     }
   }
@@ -80,14 +66,18 @@ const getProfitFromFile = (data: IResult[], item: IResult) => {
   if (d) {
     return d.profit;
   } else {
-    throw Error("Nao encontrado no greedy2");
+    // throw Error("Nao encontrado no greedy2");
+    return -1;
   }
 };
 
-const MakeCell = (props: { value: number; row: IResultSummed }) => {
-  const sorted = [props.row.random, props.row.greedy, props.row.g3].sort(
-    (a, b) => a - b
-  );
+const MakeCell = (names: string[]) => (props: {
+  value: number;
+  row: IResultSummed;
+}) => {
+  const values = names.map(name => (props.row as any)[name]);
+
+  const sorted = values.sort((a, b) => a - b);
   const min = sorted[0];
   const max = sorted[sorted.length - 1];
   const total = max - min;
@@ -103,14 +93,45 @@ const MakeCell = (props: { value: number; row: IResultSummed }) => {
 };
 export default class IndexPage extends React.Component<IndexPageProps, {}> {
   public render() {
-    const data = this.props.data.greedyJson.r.map(
-      (item): IResultSummed => ({
-        ...item,
-        greedy: item.profit,
-        random: getProfitFromFile(this.props.data.randomJson.r, item),
-        g3: getProfitFromFile(this.props.data.greedy3Json.r, item)
-      })
-    );
+    const dataMap = this.props.data.allRawJson.edges
+      .map(item => item.node)
+      .reduce((prev, curr) => {
+        return {
+          ...prev,
+          [curr.name]: curr.r
+        };
+      }, {});
+    const names = Object.keys(dataMap);
+    const x = (dataMap as any)[names[0]] as IResult[];
+    const data = x
+      .map(
+        (item): any => {
+          const toAdd = names.reduce((prev, name) => {
+            return {
+              ...prev,
+              [name]: getProfitFromFile(
+                (dataMap as any)[name] as IResult[],
+                item
+              )
+            };
+          }, {});
+          return {
+            ...item,
+            ...toAdd
+          };
+        }
+      )
+      .map(item => {
+        return { ...item, name: getNameFromPath(item.name) };
+      });
+
+    const columnsToAdd = names.map(name => {
+      return {
+        Cell: MakeCell(names),
+        Header: name,
+        accessor: name
+      };
+    });
 
     const columns = [
       {
@@ -122,31 +143,8 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
         Header: "Name",
         accessor: "name"
       },
-      {
-        Header: "Greedy Closest City Profit",
-        accessor: "greedy",
-        Cell: MakeCell
-      },
-      {
-        Header: "Greedy Test Profit",
-        accessor: "g3",
-        Cell: MakeCell
-      },
-      {
-        Header: "Choose Random City Profit",
-        accessor: "random",
-        Cell: MakeCell
-      }
+      ...columnsToAdd
     ];
-    return (
-      <ReactTable
-        defaultPageSize={200}
-        data={data.map(x => ({
-          ...x,
-          name: getNameFromPath(x.name)
-        }))}
-        columns={columns}
-      />
-    );
+    return <ReactTable defaultPageSize={200} data={data} columns={columns} />;
   }
 }

@@ -11,6 +11,7 @@ mod evaluate;
 mod greedy;
 mod inputs;
 mod instance;
+mod local_search;
 mod makers;
 mod parser;
 mod printer;

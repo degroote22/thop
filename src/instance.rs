@@ -32,6 +32,23 @@ impl<'a> Instance<'a> {
         self.instance.dimension.unwrap()
     }
 
+    pub fn get_item(&self, city: u32, item_index: u32) -> (u32, u32) {
+        // (u32: weight, u32: profit)
+        match self.items_per_city.get(&city) {
+            Some(items) => {
+                for item in items {
+                    if item_index == item.index {
+                        return (item.weight, item.profit);
+                    }
+                }
+                panic!("item nao encontrado no get_item");
+            }
+            None => {
+                panic!("nenhum item na cidade no get_item");
+            }
+        }
+    }
+
     pub fn get_items(&self, city: u32, asked_items_hash: &HashMap<u32, bool>) -> (u32, u32, u32) {
         // (u32: weight, u32: profit, u32: n items catched)
         let mut weight = 0;

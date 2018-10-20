@@ -2,10 +2,13 @@ use evaluate;
 use greedy;
 use inputs;
 use instance;
+use local_search;
 use parser;
 use serde_json;
 use std::fs::File;
 use std::io::prelude::*;
+use std::sync::mpsc;
+use std::thread;
 use std::time::Instant;
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -22,6 +25,7 @@ struct PartOneResult {
 
 #[derive(Debug, Serialize, Deserialize)]
 struct ResultsPartOne {
+    name: String,
     r: Vec<PartOneResult>,
 }
 
@@ -54,6 +58,23 @@ pub fn print_results_part_0() {
         println!("Okay: {}", result.okay);
         println!("");
     }
+}
+
+fn chunk<T>(arr: Vec<T>, size: usize) -> Vec<Vec<T>> {
+    let mut i = 0;
+
+    let mut v = Vec::new();
+
+    for _ in 0..size {
+        v.push(Vec::new());
+    }
+
+    for item in arr {
+        v[i].push(item);
+        i = (i + 1) % size;
+    }
+
+    v
 }
 
 pub fn print_results_part_1() {
@@ -104,61 +125,65 @@ pub fn print_results_part_1() {
 
         eli51.append(&mut pr107);
         eli51.append(&mut a280);
-        eli51.append(&mut dsj1000);
+        // eli51.append(&mut dsj1000);
         eli51
     };
     let mut results: Vec<PartOneResult> = vec![];
+    let length = itens.len();
+    let chunks = chunk(itens, 8);
+    let (tx, rx) = mpsc::channel();
 
-    for (index, i) in itens.iter().enumerate() {
-        let now = Instant::now();
+    for chunk in chunks {
+        let tx = tx.clone();
+        thread::spawn(move || {
+            for (index, i) in chunk.iter().enumerate() {
+                let now = Instant::now();
 
-        let mut f = File::open(i).expect("file not found");
-        let mut contents = String::new();
-        f.read_to_string(&mut contents)
-            .expect("something went wrong reading the file");
+                let mut f = File::open(i).expect("file not found");
+                let mut contents = String::new();
+                f.read_to_string(&mut contents)
+                    .expect("something went wrong reading the file");
 
-        let instance_file = parser::instance::parse(&contents);
-        let instance = instance::Instance::new(&instance_file);
+                let instance_file = parser::instance::parse(&contents);
+                let instance = instance::Instance::new(&instance_file);
 
-        let (route, hash) = greedy::greedy(&instance);
+                let (route, hash) = greedy::greedy(&instance);
 
-        let result = evaluate::Evaluator::new(&instance)._calc(&hash, &route);
+                let (final_route, asked_items_hash) = local_search::two_opt(&instance, route, hash);
 
-        // println!("Evaluating {}", i);
-        // println!("Profit: {}", result.profit);
-        // println!("Time: {}", result.time);
-        // println!("Okay: {}", result.okay);
-        // println!("");
-        if !result.okay {
-            panic!("Retornando rota inválida");
-        }
-        let new_now = Instant::now();
+                let result =
+                    evaluate::Evaluator::new(&instance)._calc(&asked_items_hash, &final_route);
 
-        let r = PartOneResult {
-            name: i.to_string(),
-            okay: result.okay,
-            time: result.time,
-            weight: result.weight,
-            profit: result.profit,
-            index: index as u32,
-            execution_time_sub: new_now.duration_since(now).subsec_nanos(),
-            execution_time: new_now.duration_since(now).as_secs(),
-        };
+                if !result.okay {
+                    panic!("Retornando rota inválida {}", i);
+                }
+                let new_now = Instant::now();
 
-        results.push(r);
+                let r = PartOneResult {
+                    name: i.to_string(),
+                    okay: result.okay,
+                    time: result.time,
+                    weight: result.weight,
+                    profit: result.profit,
+                    index: index as u32,
+                    execution_time_sub: new_now.duration_since(now).subsec_nanos(),
+                    execution_time: new_now.duration_since(now).as_secs(),
+                };
+
+                tx.send(r).unwrap();
+            }
+        });
     }
 
-    // println!("printing profit");
-    // for result in results.iter() {
-    //     println!("{}", result.profit)
-    // }
-    // println!("");
-    // println!("printing time");
-    // for result in results.iter() {
-    //     println!("{}", result.time)
-    // }
+    for _ in 0..length {
+        let received = rx.recv().unwrap();
+        results.push(received);
+    }
 
-    let json = ResultsPartOne { r: results };
+    let json = ResultsPartOne {
+        name: "two opt0".to_string(),
+        r: results,
+    };
 
     println!("{}", json.json());
 }
