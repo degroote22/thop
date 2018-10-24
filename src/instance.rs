@@ -69,6 +69,10 @@ impl<'a> Instance<'a> {
         (weight, profit, caught)
     }
 
+    // pub fn get_name (&self) -> &str {
+    //     &self.instance.problem_name.unwrap()
+    // }
+
     pub fn speed_descresc_per_weight(&self) -> f64 {
         (self.instance.max_speed.unwrap() - self.instance.min_speed.unwrap())
             / (self.instance.capacity_of_knapsack.unwrap() as f64)

@@ -61,7 +61,7 @@ const getNameFromPath = (name: string) => {
   return x[x.length - 1];
 };
 const getProfitFromFile = (data: IResult[], item: IResult) => {
-  const d = data.find(x => x.index === item.index);
+  const d = data.find(x => x.name === item.name);
 
   if (d) {
     return d.profit;
@@ -78,15 +78,19 @@ const MakeCell = (names: string[]) => (props: {
   const values = names.map(name => (props.row as any)[name]);
 
   const sorted = values.sort((a, b) => a - b);
-  const min = sorted[0];
+  // const min = sorted[0];
   const max = sorted[sorted.length - 1];
-  const total = max - min;
-  const frac = props.value - min;
-  const unitary = Math.abs(frac / total);
-  const hex = (255 - Math.floor(Math.pow(unitary, 3) * 60)).toString(16);
-  const color = `#${hex}ff${hex}`;
+  const biggest = props.value === max;
+  // const total = max - min;
+  // const frac = props.value - min;
+  // const unitary = Math.abs(frac / total);
+  // const hex = (255 - Math.floor(Math.pow(unitary, 3) * 60)).toString(16);
+  // const color = `#${hex}ff${hex}`;
   return (
-    <span style={{ backgroundColor: color }} className="number">
+    <span
+      style={{ backgroundColor: biggest ? "#00ff00" : "#ffffff" }}
+      className="number"
+    >
       {props.value}
     </span>
   ); // Custom cell components!

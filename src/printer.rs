@@ -1,8 +1,6 @@
 use evaluate;
-use greedy;
 use inputs;
 use instance;
-use local_search;
 use parser;
 use serde_json;
 use std::fs::File;
@@ -10,6 +8,7 @@ use std::io::prelude::*;
 use std::sync::mpsc;
 use std::thread;
 use std::time::Instant;
+use vns;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct PartOneResult {
@@ -21,6 +20,8 @@ struct PartOneResult {
     index: u32,
     execution_time_sub: u32,
     execution_time: u64,
+    route: Vec<u32>,
+    asked_items: Vec<u32>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -95,7 +96,7 @@ pub fn print_results_part_1() {
         let mut contents = String::new();
         f.read_to_string(&mut contents)
             .expect("something went wrong reading the file");
-        let mut pr107: Vec<String> = contents
+        let mut _pr107: Vec<String> = contents
             .lines()
             .map(|line| pr107_base.to_owned() + line)
             .into_iter()
@@ -106,7 +107,7 @@ pub fn print_results_part_1() {
         let mut contents = String::new();
         f.read_to_string(&mut contents)
             .expect("something went wrong reading the file");
-        let mut a280: Vec<String> = contents
+        let mut _a280: Vec<String> = contents
             .lines()
             .map(|line| a280_base.to_owned() + line)
             .into_iter()
@@ -117,20 +118,20 @@ pub fn print_results_part_1() {
         let mut contents = String::new();
         f.read_to_string(&mut contents)
             .expect("something went wrong reading the file");
-        let mut dsj1000: Vec<String> = contents
+        let mut _dsj1000: Vec<String> = contents
             .lines()
             .map(|line| dsj1000_base.to_owned() + line)
             .into_iter()
             .collect();
 
-        eli51.append(&mut pr107);
-        eli51.append(&mut a280);
-        // eli51.append(&mut dsj1000);
+        eli51.append(&mut _pr107);
+        eli51.append(&mut _a280);
+        eli51.append(&mut _dsj1000);
         eli51
     };
     let mut results: Vec<PartOneResult> = vec![];
     let length = itens.len();
-    let chunks = chunk(itens, 8);
+    let chunks = chunk(itens, 4);
     let (tx, rx) = mpsc::channel();
 
     for chunk in chunks {
@@ -147,17 +148,25 @@ pub fn print_results_part_1() {
                 let instance_file = parser::instance::parse(&contents);
                 let instance = instance::Instance::new(&instance_file);
 
-                let (route, hash) = greedy::greedy(&instance);
+                // let (route, hash) = greedy::greedy(&instance);
 
-                let (final_route, asked_items_hash) = local_search::two_opt(&instance, route, hash);
+                // let (final_route, asked_items_hash) = local_search::two_opt(&instance, route, hash);
+                let (route, hash) = vns::vns(&instance);
 
-                let result =
-                    evaluate::Evaluator::new(&instance)._calc(&asked_items_hash, &final_route);
+                let result = evaluate::Evaluator::new(&instance)._calc(&hash, &route);
 
                 if !result.okay {
                     panic!("Retornando rota inválida {}", i);
                 }
                 let new_now = Instant::now();
+
+                let asked_items = {
+                    let mut v = Vec::new();
+                    for (key, _) in hash.iter() {
+                        v.push(*key);
+                    }
+                    v
+                };
 
                 let r = PartOneResult {
                     name: i.to_string(),
@@ -168,6 +177,8 @@ pub fn print_results_part_1() {
                     index: index as u32,
                     execution_time_sub: new_now.duration_since(now).subsec_nanos(),
                     execution_time: new_now.duration_since(now).as_secs(),
+                    route,
+                    asked_items,
                 };
 
                 tx.send(r).unwrap();
@@ -177,11 +188,14 @@ pub fn print_results_part_1() {
 
     for _ in 0..length {
         let received = rx.recv().unwrap();
+
+        // println!("received {:?}", received);
+
         results.push(received);
     }
 
     let json = ResultsPartOne {
-        name: "two opt0".to_string(),
+        name: "vns".to_string(),
         r: results,
     };
 

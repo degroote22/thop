@@ -1,0 +1,1085 @@
+{
+  "name": "vnsbeta",
+  "r": [
+    {
+      "time": 207.63308509582507,
+      "weight": 12215,
+      "profit": 16115,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_01.thop",
+      "index": 0,
+      "execution_time_sub": 14869828,
+      "execution_time": 0
+    },
+    {
+      "time": 306.78790803729424,
+      "weight": 12346,
+      "profit": 16746,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_02.thop",
+      "index": 1,
+      "execution_time_sub": 18501332,
+      "execution_time": 0
+    },
+    {
+      "time": 383.2852034886284,
+      "weight": 12302,
+      "profit": 17102,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_01_03.thop",
+      "index": 2,
+      "execution_time_sub": 13675961,
+      "execution_time": 0
+    },
+    {
+      "time": 302.98801836198743,
+      "weight": 38263,
+      "profit": 46363,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_01.thop",
+      "index": 3,
+      "execution_time_sub": 58970623,
+      "execution_time": 0
+    },
+    {
+      "time": 454.7700085718422,
+      "weight": 39102,
+      "profit": 48002,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_02.thop",
+      "index": 4,
+      "execution_time_sub": 157521645,
+      "execution_time": 0
+    },
+    {
+      "time": 604.6654017986652,
+      "weight": 44629,
+      "profit": 53929,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_05_03.thop",
+      "index": 5,
+      "execution_time_sub": 111134116,
+      "execution_time": 0
+    },
+    {
+      "time": 346.99593342944996,
+      "weight": 38007,
+      "profit": 45907,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_10_01.thop",
+      "index": 6,
+      "execution_time_sub": 84283488,
+      "execution_time": 0
+    },
+    {
+      "time": 520.8229041012053,
+      "weight": 53436,
+      "profit": 64436,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_10_02.thop",
+      "index": 7,
+      "execution_time_sub": 182492191,
+      "execution_time": 0
+    },
+    {
+      "time": 693.0378134795678,
+      "weight": 64986,
+      "profit": 78486,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_bounded-strongly-corr_10_03.thop",
+      "index": 8,
+      "execution_time_sub": 405030234,
+      "execution_time": 0
+    },
+    {
+      "time": 238.1895230951723,
+      "weight": 5967,
+      "profit": 12054,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr_01_01.thop",
+      "index": 9,
+      "execution_time_sub": 9589918,
+      "execution_time": 0
+    },
+    {
+      "time": 365.9030195824826,
+      "weight": 6619,
+      "profit": 13927,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr_01_02.thop",
+      "index": 10,
+      "execution_time_sub": 6236669,
+      "execution_time": 0
+    },
+    {
+      "time": 479.83389889213106,
+      "weight": 6511,
+      "profit": 16383,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr_01_03.thop",
+      "index": 11,
+      "execution_time_sub": 12302896,
+      "execution_time": 0
+    },
+    {
+      "time": 281.7730897405257,
+      "weight": 18647,
+      "profit": 18039,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr_05_01.thop",
+      "index": 12,
+      "execution_time_sub": 50948520,
+      "execution_time": 0
+    },
+    {
+      "time": 423.26181762544314,
+      "weight": 22124,
+      "profit": 28896,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr_05_02.thop",
+      "index": 13,
+      "execution_time_sub": 100160915,
+      "execution_time": 0
+    },
+    {
+      "time": 563.4224414472684,
+      "weight": 26490,
+      "profit": 31331,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr_05_03.thop",
+      "index": 14,
+      "execution_time_sub": 217559850,
+      "execution_time": 0
+    },
+    {
+      "time": 325.6923110370679,
+      "weight": 25011,
+      "profit": 28473,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr_10_01.thop",
+      "index": 15,
+      "execution_time_sub": 122272662,
+      "execution_time": 0
+    },
+    {
+      "time": 487.675606447085,
+      "weight": 25953,
+      "profit": 33744,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr_10_02.thop",
+      "index": 16,
+      "execution_time_sub": 183701499,
+      "execution_time": 0
+    },
+    {
+      "time": 650.9108101358397,
+      "weight": 33681,
+      "profit": 38449,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr_10_03.thop",
+      "index": 17,
+      "execution_time_sub": 340217653,
+      "execution_time": 0
+    },
+    {
+      "time": 125.3786297485057,
+      "weight": 12059,
+      "profit": 7974,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr-similar-weights_01_01.thop",
+      "index": 18,
+      "execution_time_sub": 6884370,
+      "execution_time": 0
+    },
+    {
+      "time": 189.4987084876214,
+      "weight": 12057,
+      "profit": 9150,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr-similar-weights_01_02.thop",
+      "index": 19,
+      "execution_time_sub": 10476791,
+      "execution_time": 0
+    },
+    {
+      "time": 253.17885496418995,
+      "weight": 12058,
+      "profit": 9257,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr-similar-weights_01_03.thop",
+      "index": 20,
+      "execution_time_sub": 11604816,
+      "execution_time": 0
+    },
+    {
+      "time": 329.7029291112354,
+      "weight": 39146,
+      "profit": 23680,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr-similar-weights_05_01.thop",
+      "index": 21,
+      "execution_time_sub": 98979486,
+      "execution_time": 0
+    },
+    {
+      "time": 494.6998207564274,
+      "weight": 43196,
+      "profit": 31469,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr-similar-weights_05_02.thop",
+      "index": 22,
+      "execution_time_sub": 242866557,
+      "execution_time": 0
+    },
+    {
+      "time": 658.304118804301,
+      "weight": 46215,
+      "profit": 35078,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr-similar-weights_05_03.thop",
+      "index": 23,
+      "execution_time_sub": 383045239,
+      "execution_time": 0
+    },
+    {
+      "time": 343.5383451586639,
+      "weight": 42199,
+      "profit": 27486,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr-similar-weights_10_01.thop",
+      "index": 24,
+      "execution_time_sub": 221738759,
+      "execution_time": 0
+    },
+    {
+      "time": 514.5245966732028,
+      "weight": 55253,
+      "profit": 34274,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr-similar-weights_10_02.thop",
+      "index": 25,
+      "execution_time_sub": 200116830,
+      "execution_time": 0
+    },
+    {
+      "time": 686.8078911932643,
+      "weight": 61297,
+      "profit": 38620,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n147_uncorr-similar-weights_10_03.thop",
+      "index": 26,
+      "execution_time_sub": 359418486,
+      "execution_time": 0
+    },
+    {
+      "time": 253.28551895083444,
+      "weight": 20739,
+      "profit": 26139,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_bounded-strongly-corr_01_01.thop",
+      "index": 27,
+      "execution_time_sub": 34395950,
+      "execution_time": 0
+    },
+    {
+      "time": 379.40807238784265,
+      "weight": 22396,
+      "profit": 27996,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_bounded-strongly-corr_01_02.thop",
+      "index": 28,
+      "execution_time_sub": 58420987,
+      "execution_time": 0
+    },
+    {
+      "time": 506.51437912836684,
+      "weight": 22611,
+      "profit": 29911,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_bounded-strongly-corr_01_03.thop",
+      "index": 29,
+      "execution_time_sub": 82727138,
+      "execution_time": 0
+    },
+    {
+      "time": 324.99354109990895,
+      "weight": 37879,
+      "profit": 45579,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_bounded-strongly-corr_05_01.thop",
+      "index": 30,
+      "execution_time_sub": 120267768,
+      "execution_time": 0
+    },
+    {
+      "time": 487.830304610054,
+      "weight": 51616,
+      "profit": 63716,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_bounded-strongly-corr_05_02.thop",
+      "index": 31,
+      "execution_time_sub": 366077289,
+      "execution_time": 0
+    },
+    {
+      "time": 649.8479823243712,
+      "weight": 66254,
+      "profit": 79154,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_bounded-strongly-corr_05_03.thop",
+      "index": 32,
+      "execution_time_sub": 568895535,
+      "execution_time": 0
+    },
+    {
+      "time": 354.9605517913195,
+      "weight": 54523,
+      "profit": 66023,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_bounded-strongly-corr_10_01.thop",
+      "index": 33,
+      "execution_time_sub": 276203670,
+      "execution_time": 0
+    },
+    {
+      "time": 531.7253684096869,
+      "weight": 71671,
+      "profit": 86171,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_bounded-strongly-corr_10_02.thop",
+      "index": 34,
+      "execution_time_sub": 467253334,
+      "execution_time": 0
+    },
+    {
+      "time": 709.872424995455,
+      "weight": 111689,
+      "profit": 132189,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_bounded-strongly-corr_10_03.thop",
+      "index": 35,
+      "execution_time_sub": 849270188,
+      "execution_time": 0
+    },
+    {
+      "time": 255.82914854034337,
+      "weight": 10991,
+      "profit": 20383,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr_01_01.thop",
+      "index": 36,
+      "execution_time_sub": 24741878,
+      "execution_time": 0
+    },
+    {
+      "time": 387.6373130524113,
+      "weight": 9732,
+      "profit": 22825,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr_01_02.thop",
+      "index": 37,
+      "execution_time_sub": 33793039,
+      "execution_time": 0
+    },
+    {
+      "time": 513.29041036949,
+      "weight": 10869,
+      "profit": 26281,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr_01_03.thop",
+      "index": 38,
+      "execution_time_sub": 43698595,
+      "execution_time": 0
+    },
+    {
+      "time": 295.9403507479477,
+      "weight": 26709,
+      "profit": 31421,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr_05_01.thop",
+      "index": 39,
+      "execution_time_sub": 204707053,
+      "execution_time": 0
+    },
+    {
+      "time": 443.83441949582,
+      "weight": 29498,
+      "profit": 41600,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr_05_02.thop",
+      "index": 40,
+      "execution_time_sub": 399767121,
+      "execution_time": 0
+    },
+    {
+      "time": 591.7794515178157,
+      "weight": 33520,
+      "profit": 42051,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr_05_03.thop",
+      "index": 41,
+      "execution_time_sub": 401031930,
+      "execution_time": 0
+    },
+    {
+      "time": 321.96179035639074,
+      "weight": 27432,
+      "profit": 34181,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr_10_01.thop",
+      "index": 42,
+      "execution_time_sub": 203606489,
+      "execution_time": 0
+    },
+    {
+      "time": 481.66854750545076,
+      "weight": 38632,
+      "profit": 47179,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr_10_02.thop",
+      "index": 43,
+      "execution_time_sub": 575667783,
+      "execution_time": 0
+    },
+    {
+      "time": 642.271930296277,
+      "weight": 39582,
+      "profit": 50472,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr_10_03.thop",
+      "index": 44,
+      "execution_time_sub": 856798398,
+      "execution_time": 0
+    },
+    {
+      "time": 160.6892511506331,
+      "weight": 16074,
+      "profit": 9945,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr-similar-weights_01_01.thop",
+      "index": 45,
+      "execution_time_sub": 8766237,
+      "execution_time": 0
+    },
+    {
+      "time": 241.53448650267376,
+      "weight": 19099,
+      "profit": 13310,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr-similar-weights_01_02.thop",
+      "index": 46,
+      "execution_time_sub": 28497056,
+      "execution_time": 0
+    },
+    {
+      "time": 320.51621251441,
+      "weight": 22095,
+      "profit": 13977,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr-similar-weights_01_03.thop",
+      "index": 47,
+      "execution_time_sub": 41544801,
+      "execution_time": 0
+    },
+    {
+      "time": 335.86065818991494,
+      "weight": 46189,
+      "profit": 24048,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr-similar-weights_05_01.thop",
+      "index": 48,
+      "execution_time_sub": 207127620,
+      "execution_time": 0
+    },
+    {
+      "time": 503.9883016623539,
+      "weight": 57284,
+      "profit": 33926,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr-similar-weights_05_02.thop",
+      "index": 49,
+      "execution_time_sub": 503329491,
+      "execution_time": 0
+    },
+    {
+      "time": 671.1741101381548,
+      "weight": 68302,
+      "profit": 39049,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr-similar-weights_05_03.thop",
+      "index": 50,
+      "execution_time_sub": 473490719,
+      "execution_time": 0
+    },
+    {
+      "time": 340.6923465616928,
+      "weight": 50218,
+      "profit": 27860,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr-similar-weights_10_01.thop",
+      "index": 51,
+      "execution_time_sub": 162542766,
+      "execution_time": 0
+    },
+    {
+      "time": 511.668600831975,
+      "weight": 65324,
+      "profit": 34441,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr-similar-weights_10_02.thop",
+      "index": 52,
+      "execution_time_sub": 375341305,
+      "execution_time": 0
+    },
+    {
+      "time": 681.8649175638827,
+      "weight": 100500,
+      "profit": 58919,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n245_uncorr-similar-weights_10_03.thop",
+      "index": 53,
+      "execution_time_sub": 836853432,
+      "execution_time": 0
+    },
+    {
+      "time": 134.61537156646736,
+      "weight": 3951,
+      "profit": 4751,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_bounded-strongly-corr_01_01.thop",
+      "index": 54,
+      "execution_time_sub": 1034253,
+      "execution_time": 0
+    },
+    {
+      "time": 219.61136900143026,
+      "weight": 3968,
+      "profit": 5168,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_bounded-strongly-corr_01_02.thop",
+      "index": 55,
+      "execution_time_sub": 1262787,
+      "execution_time": 0
+    },
+    {
+      "time": 313.42295392479974,
+      "weight": 3953,
+      "profit": 4953,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_bounded-strongly-corr_01_03.thop",
+      "index": 56,
+      "execution_time_sub": 634036,
+      "execution_time": 0
+    },
+    {
+      "time": 241.6431034359907,
+      "weight": 10566,
+      "profit": 13266,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_bounded-strongly-corr_05_01.thop",
+      "index": 57,
+      "execution_time_sub": 5144374,
+      "execution_time": 0
+    },
+    {
+      "time": 361.64295296824963,
+      "weight": 16488,
+      "profit": 20388,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_bounded-strongly-corr_05_02.thop",
+      "index": 58,
+      "execution_time_sub": 3645023,
+      "execution_time": 0
+    },
+    {
+      "time": 478.78282056735407,
+      "weight": 18666,
+      "profit": 23366,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_bounded-strongly-corr_05_03.thop",
+      "index": 59,
+      "execution_time_sub": 5197333,
+      "execution_time": 0
+    },
+    {
+      "time": 337.0530019973114,
+      "weight": 21014,
+      "profit": 26314,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_bounded-strongly-corr_10_01.thop",
+      "index": 60,
+      "execution_time_sub": 6773749,
+      "execution_time": 0
+    },
+    {
+      "time": 494.7483200493692,
+      "weight": 25083,
+      "profit": 31083,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_bounded-strongly-corr_10_02.thop",
+      "index": 61,
+      "execution_time_sub": 9428370,
+      "execution_time": 0
+    },
+    {
+      "time": 677.8003118043478,
+      "weight": 30757,
+      "profit": 37557,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_bounded-strongly-corr_10_03.thop",
+      "index": 62,
+      "execution_time_sub": 17260072,
+      "execution_time": 0
+    },
+    {
+      "time": 208.8940999597252,
+      "weight": 1554,
+      "profit": 3585,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr_01_01.thop",
+      "index": 63,
+      "execution_time_sub": 1098628,
+      "execution_time": 0
+    },
+    {
+      "time": 284.44970917664796,
+      "weight": 1939,
+      "profit": 4521,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr_01_02.thop",
+      "index": 64,
+      "execution_time_sub": 1302489,
+      "execution_time": 0
+    },
+    {
+      "time": 439.84134173598005,
+      "weight": 1863,
+      "profit": 4714,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr_01_03.thop",
+      "index": 65,
+      "execution_time_sub": 1713429,
+      "execution_time": 0
+    },
+    {
+      "time": 226.35878960322538,
+      "weight": 5581,
+      "profit": 8339,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr_05_01.thop",
+      "index": 66,
+      "execution_time_sub": 6266249,
+      "execution_time": 0
+    },
+    {
+      "time": 350.97088197973983,
+      "weight": 7290,
+      "profit": 9979,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr_05_02.thop",
+      "index": 67,
+      "execution_time_sub": 9571959,
+      "execution_time": 0
+    },
+    {
+      "time": 464.2192983845091,
+      "weight": 8875,
+      "profit": 11156,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr_05_03.thop",
+      "index": 68,
+      "execution_time_sub": 11081538,
+      "execution_time": 0
+    },
+    {
+      "time": 267.2243939541515,
+      "weight": 10387,
+      "profit": 10014,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr_10_01.thop",
+      "index": 69,
+      "execution_time_sub": 4172869,
+      "execution_time": 0
+    },
+    {
+      "time": 405.1090812341732,
+      "weight": 13753,
+      "profit": 14125,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr_10_02.thop",
+      "index": 70,
+      "execution_time_sub": 12930886,
+      "execution_time": 0
+    },
+    {
+      "time": 542.2661431155436,
+      "weight": 14230,
+      "profit": 16765,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr_10_03.thop",
+      "index": 71,
+      "execution_time_sub": 18156583,
+      "execution_time": 0
+    },
+    {
+      "time": 72.45836480330325,
+      "weight": 3008,
+      "profit": 2425,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr-similar-weights_01_01.thop",
+      "index": 72,
+      "execution_time_sub": 838976,
+      "execution_time": 0
+    },
+    {
+      "time": 107.21850060414195,
+      "weight": 3013,
+      "profit": 2650,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr-similar-weights_01_02.thop",
+      "index": 73,
+      "execution_time_sub": 958445,
+      "execution_time": 0
+    },
+    {
+      "time": 136.00650167853874,
+      "weight": 4021,
+      "profit": 2939,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr-similar-weights_01_03.thop",
+      "index": 74,
+      "execution_time_sub": 1231120,
+      "execution_time": 0
+    },
+    {
+      "time": 236.91627246315858,
+      "weight": 14063,
+      "profit": 6388,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr-similar-weights_05_01.thop",
+      "index": 75,
+      "execution_time_sub": 3800081,
+      "execution_time": 0
+    },
+    {
+      "time": 356.1799989794305,
+      "weight": 18078,
+      "profit": 8817,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr-similar-weights_05_02.thop",
+      "index": 76,
+      "execution_time_sub": 5975771,
+      "execution_time": 0
+    },
+    {
+      "time": 470.13821003696506,
+      "weight": 21084,
+      "profit": 11348,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr-similar-weights_05_03.thop",
+      "index": 77,
+      "execution_time_sub": 13215799,
+      "execution_time": 0
+    },
+    {
+      "time": 284.4053392241125,
+      "weight": 24094,
+      "profit": 11393,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr-similar-weights_10_01.thop",
+      "index": 78,
+      "execution_time_sub": 8721672,
+      "execution_time": 0
+    },
+    {
+      "time": 433.82744878495623,
+      "weight": 30125,
+      "profit": 15978,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr-similar-weights_10_02.thop",
+      "index": 79,
+      "execution_time_sub": 13532980,
+      "execution_time": 0
+    },
+    {
+      "time": 568.0609721272509,
+      "weight": 34144,
+      "profit": 17045,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n49_uncorr-similar-weights_10_03.thop",
+      "index": 80,
+      "execution_time_sub": 9626126,
+      "execution_time": 0
+    },
+    {
+      "time": 288.62934929165084,
+      "weight": 41695,
+      "profit": 51395,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_bounded-strongly-corr_01_01.thop",
+      "index": 81,
+      "execution_time_sub": 256840719,
+      "execution_time": 0
+    },
+    {
+      "time": 433.83013584856485,
+      "weight": 35605,
+      "profit": 44605,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_bounded-strongly-corr_01_02.thop",
+      "index": 82,
+      "execution_time_sub": 434395119,
+      "execution_time": 0
+    },
+    {
+      "time": 575.4099890327634,
+      "weight": 40753,
+      "profit": 56053,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_bounded-strongly-corr_01_03.thop",
+      "index": 83,
+      "execution_time_sub": 387007663,
+      "execution_time": 1
+    },
+    {
+      "time": 340.98394151391244,
+      "weight": 54303,
+      "profit": 68003,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_bounded-strongly-corr_05_01.thop",
+      "index": 84,
+      "execution_time_sub": 4414112,
+      "execution_time": 1
+    },
+    {
+      "time": 510.94449339051505,
+      "weight": 89794,
+      "profit": 107694,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_bounded-strongly-corr_05_02.thop",
+      "index": 85,
+      "execution_time_sub": 556669477,
+      "execution_time": 1
+    },
+    {
+      "time": 680.9852975341506,
+      "weight": 93432,
+      "profit": 110732,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_bounded-strongly-corr_05_03.thop",
+      "index": 86,
+      "execution_time_sub": 677098348,
+      "execution_time": 1
+    },
+    {
+      "time": 354.97429271374597,
+      "weight": 100979,
+      "profit": 122779,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_bounded-strongly-corr_10_01.thop",
+      "index": 87,
+      "execution_time_sub": 725544693,
+      "execution_time": 1
+    },
+    {
+      "time": 532.9810103136655,
+      "weight": 111739,
+      "profit": 133539,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_bounded-strongly-corr_10_02.thop",
+      "index": 88,
+      "execution_time_sub": 148698276,
+      "execution_time": 3
+    },
+    {
+      "time": 709.8855428991853,
+      "weight": 219352,
+      "profit": 261352,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_bounded-strongly-corr_10_03.thop",
+      "index": 89,
+      "execution_time_sub": 578735589,
+      "execution_time": 5
+    },
+    {
+      "time": 313.8914411074818,
+      "weight": 20753,
+      "profit": 38181,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr_01_01.thop",
+      "index": 90,
+      "execution_time_sub": 382364644,
+      "execution_time": 0
+    },
+    {
+      "time": 466.5801537168436,
+      "weight": 19634,
+      "profit": 46106,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr_01_02.thop",
+      "index": 91,
+      "execution_time_sub": 637703297,
+      "execution_time": 0
+    },
+    {
+      "time": 626.669429394739,
+      "weight": 20429,
+      "profit": 58631,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr_01_03.thop",
+      "index": 92,
+      "execution_time_sub": 238187929,
+      "execution_time": 3
+    },
+    {
+      "time": 332.98309930735627,
+      "weight": 37871,
+      "profit": 51006,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr_05_01.thop",
+      "index": 93,
+      "execution_time_sub": 261735573,
+      "execution_time": 1
+    },
+    {
+      "time": 498.9884142291705,
+      "weight": 45403,
+      "profit": 57732,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr_05_02.thop",
+      "index": 94,
+      "execution_time_sub": 772877062,
+      "execution_time": 1
+    },
+    {
+      "time": 664.9212834733383,
+      "weight": 51441,
+      "profit": 82182,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr_05_03.thop",
+      "index": 95,
+      "execution_time_sub": 233916679,
+      "execution_time": 5
+    },
+    {
+      "time": 325.97414633964956,
+      "weight": 37016,
+      "profit": 51243,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr_10_01.thop",
+      "index": 96,
+      "execution_time_sub": 86756868,
+      "execution_time": 1
+    },
+    {
+      "time": 488.94155902608895,
+      "weight": 54924,
+      "profit": 64750,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr_10_02.thop",
+      "index": 97,
+      "execution_time_sub": 91180553,
+      "execution_time": 2
+    },
+    {
+      "time": 651.9655847945176,
+      "weight": 80145,
+      "profit": 108129,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr_10_03.thop",
+      "index": 98,
+      "execution_time_sub": 655501533,
+      "execution_time": 5
+    },
+    {
+      "time": 187.34327388017613,
+      "weight": 24097,
+      "profit": 12589,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_01_01.thop",
+      "index": 99,
+      "execution_time_sub": 48499135,
+      "execution_time": 0
+    },
+    {
+      "time": 281.8933452535719,
+      "weight": 41179,
+      "profit": 21235,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_01_02.thop",
+      "index": 100,
+      "execution_time_sub": 224769345,
+      "execution_time": 0
+    },
+    {
+      "time": 374.9935313825315,
+      "weight": 40162,
+      "profit": 24294,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_01_03.thop",
+      "index": 101,
+      "execution_time_sub": 703090604,
+      "execution_time": 0
+    },
+    {
+      "time": 345.96904611787284,
+      "weight": 59270,
+      "profit": 30546,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_01.thop",
+      "index": 102,
+      "execution_time_sub": 546793205,
+      "execution_time": 0
+    },
+    {
+      "time": 517.9139465105294,
+      "weight": 75372,
+      "profit": 39360,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_02.thop",
+      "index": 103,
+      "execution_time_sub": 652486443,
+      "execution_time": 1
+    },
+    {
+      "time": 690.8907172785497,
+      "weight": 109529,
+      "profit": 62385,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_05_03.thop",
+      "index": 104,
+      "execution_time_sub": 584774049,
+      "execution_time": 2
+    },
+    {
+      "time": 343.9974120709823,
+      "weight": 72326,
+      "profit": 40422,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_10_01.thop",
+      "index": 105,
+      "execution_time_sub": 732693205,
+      "execution_time": 0
+    },
+    {
+      "time": 514.9378696191064,
+      "weight": 101503,
+      "profit": 57129,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_10_02.thop",
+      "index": 106,
+      "execution_time_sub": 898126634,
+      "execution_time": 1
+    },
+    {
+      "time": 686.759596373573,
+      "weight": 193891,
+      "profit": 107171,
+      "okay": true,
+      "name": "./input-b/instances/eil51-thop/eil51_n490_uncorr-similar-weights_10_03.thop",
+      "index": 107,
+      "execution_time_sub": 146372809,
+      "execution_time": 4
+    }
+  ]
+}
