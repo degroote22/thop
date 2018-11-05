@@ -17,6 +17,7 @@ mod local_search;
 mod makers;
 mod parser;
 mod printer;
+mod sa;
 mod switch_cities;
 mod utils;
 mod vns;

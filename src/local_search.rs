@@ -20,6 +20,9 @@ pub fn two_opt(
     loop {
         let old_route = route.clone();
         // pra cada cidade que está na rota
+        // let it = {
+
+        // };
         for (index, old_city) in old_route.iter().enumerate() {
             //nao pode trocar a primeira nem a última cidade da rota
             if *old_city == 1 || *old_city == instance.get_dimension() {

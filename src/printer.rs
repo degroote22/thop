@@ -2,6 +2,7 @@ use evaluate;
 use inputs;
 use instance;
 use parser;
+use sa;
 use serde_json;
 use std::fs::File;
 use std::io::prelude::*;
@@ -148,10 +149,15 @@ pub fn print_results_part_1() {
                 let instance_file = parser::instance::parse(&contents);
                 let instance = instance::Instance::new(&instance_file);
 
-                // let (route, hash) = greedy::greedy(&instance);
+                let ans = {
+                    if false {
+                        sa::sa(&instance, 25000, 250.0)
+                    } else {
+                        vns::vns(&instance)
+                    }
+                };
 
-                // let (final_route, asked_items_hash) = local_search::two_opt(&instance, route, hash);
-                let (route, hash) = vns::vns(&instance);
+                let (route, hash) = ans;
 
                 let result = evaluate::Evaluator::new(&instance)._calc(&hash, &route);
 
@@ -189,15 +195,18 @@ pub fn print_results_part_1() {
     for _ in 0..length {
         let received = rx.recv().unwrap();
 
-        // println!("received {:?}", received);
+        println!("received {}/{}", results.len(), length);
 
         results.push(received);
     }
 
+    let mut file_to_write = File::create("vnsfbi.json").unwrap();
+
     let json = ResultsPartOne {
-        name: "vns".to_string(),
+        name: "vnsfbi".to_string(),
         r: results,
     };
-
     println!("{}", json.json());
+
+    file_to_write.write_all(json.json().as_bytes()).unwrap();
 }

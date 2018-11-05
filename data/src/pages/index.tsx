@@ -138,11 +138,11 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
     });
 
     const columns = [
-      {
-        Header: "Index",
-        accessor: "index",
-        width: 64
-      },
+      // {
+      //   Header: "Index",
+      //   accessor: "index",
+      //   width: 64
+      // },
       {
         Header: "Name",
         accessor: "name"

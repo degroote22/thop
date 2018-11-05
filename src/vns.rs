@@ -5,6 +5,7 @@ use insert_city;
 use instance;
 use local_search;
 use std::collections::HashMap;
+use std::time::Instant;
 use switch_cities;
 
 #[derive(Debug)]
@@ -63,8 +64,16 @@ pub fn vns(instance: &instance::Instance) -> (Vec<u32>, HashMap<u32, bool>) {
     let mut old_hash = hash.clone();
     let mut neighboorhood = Neighboorhood::first();
     let mut ev = evaluate::Evaluator::new(&instance);
+    let now = Instant::now();
 
     loop {
+        let new_now = Instant::now();
+        let execution_time = new_now.duration_since(now).as_secs();
+
+        if execution_time > 60 {
+            return (old_route, old_hash);
+        }
+
         let (new_route, new_hash) = neighboorhood.search(&instance, &old_route, &old_hash);
 
         ev._reset();
