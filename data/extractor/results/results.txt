@@ -1,0 +1,9 @@
+
+  vns-wins: 387
+  sa-wins: 39
+  draw: 6
+  
+  how-better-vns: 46534.052220347374
+  how-better-sa: 519.8367051630707
+  vns-sa: 46014.2155151843
+  
